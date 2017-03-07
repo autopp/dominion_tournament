@@ -10,17 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170305133921) do
+ActiveRecord::Schema.define(version: 20170307163450) do
 
   create_table "players", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",          null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "tournament_id"
+    t.index ["tournament_id"], name: "index_players_on_tournament_id"
   end
 
   create_table "rounds", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "tournament_id"
+    t.index ["tournament_id"], name: "index_rounds_on_tournament_id"
   end
 
   create_table "scores", force: :cascade do |t|
@@ -29,11 +33,17 @@ ActiveRecord::Schema.define(version: 20170305133921) do
     t.boolean  "has_extra_turn", default: false
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.integer  "player_id"
+    t.integer  "table_id"
+    t.index ["player_id"], name: "index_scores_on_player_id"
+    t.index ["table_id"], name: "index_scores_on_table_id"
   end
 
   create_table "tables", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "round_id"
+    t.index ["round_id"], name: "index_tables_on_round_id"
   end
 
   create_table "tournaments", force: :cascade do |t|
