@@ -15,6 +15,7 @@ module DominionTournament
       g.test_framework :rspec,
                        view_specs: false,
                        routing_specs: false,
+                       controller_specs: false,
                        helper_specs: false,
                        integration_tool: false
     end
