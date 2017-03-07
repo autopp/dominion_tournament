@@ -48,6 +48,7 @@ group :development, :test do
   gem 'pry-stack_explorer'
 
   gem 'factory_girl_rails'
+  gem 'database_cleaner'
 end
 
 group :development do
