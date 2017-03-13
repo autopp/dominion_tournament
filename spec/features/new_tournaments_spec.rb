@@ -22,4 +22,20 @@ RSpec.feature 'create tournament', type: :feature do
     expect(Tournament.count).to eq(2)
     expect(Player.count).to eq(5)
   end
+
+  scenario 'input invalid players text and click create' do
+    visit new_tournament_path
+
+    input = <<~EOS
+
+
+    EOS
+
+    fill_in 'players', with: input
+    click_on 'Create'
+
+    expect(Tournament.count).to eq(1)
+    expect(Player.count).to eq(2)
+    expect(page).to have_css('div', id: 'error_explanation')
+  end
 end

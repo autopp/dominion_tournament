@@ -8,15 +8,23 @@ class TournamentsController < ApplicationController
 
   def create
     players = params[:players].each_line.map(&:strip).reject(&:blank?)
+
+    if players.empty?
+      @errors = ['no player given']
+      render :new
+      return
+    end
+
     t = Tournament.new
     ActiveRecord::Base.transaction do
       t.save!
-      players.each do |name|
-        t.players.create!(name: name)
-      end
+      players.each { |name| t.players.create!(name: name) }
     end
-
     redirect_to tournament_path(id: t.id)
+
+  rescue => e
+    @errors = [e.message]
+    render :new
   end
 
   def show
