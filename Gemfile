@@ -51,6 +51,8 @@ group :development, :test do
   gem 'database_cleaner'
 
   gem 'capybara'
+
+  gem 'rubocop'
 end
 
 group :development do
