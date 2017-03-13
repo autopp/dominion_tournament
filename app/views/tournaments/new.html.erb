@@ -1,2 +1,9 @@
-<h1>Tournaments#new</h1>
-<p>Find me in app/views/tournaments/new.html.erb</p>
+<% provide(:title, 'Create new tournament') %>
+
+<div>
+  Input players
+</div>
+<%= form_tag('/tournaments', method: :post) do %>
+  <%= text_area_tag :players %>
+  <%= submit_tag 'Create' %>
+<% end %>
