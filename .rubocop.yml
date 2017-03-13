@@ -1,5 +1,12 @@
 AllCops:
   TargetRubyVersion: 2.3
+  Exclude:
+    - bin/*
+    - config/**/*.rb
+    - db/migrate/*.rb
+    - db/schema.rb
+    - db/seeds.rb
+    - vendor/bundle/**/*
 
 Metrics/LineLength:
   Max: 100
@@ -8,6 +15,9 @@ Style/AsciiComments:
   Enabled: false
 
 Style/BracesAroundHashParameters:
+  Enabled: false
+
+Style/Documentation:
   Enabled: false
 
 Style/MutableConstant:
