@@ -20,6 +20,7 @@ class TournamentsController < ApplicationController
       t.save!
       players.each { |name| t.players.create!(name: name) }
     end
+    flash[:success] = "New tournament #{t.id} is created"
     redirect_to tournament_path(id: t.id)
 
   rescue => e
