@@ -15,11 +15,7 @@ class TournamentsController < ApplicationController
       return
     end
 
-    t = Tournament.new
-    ActiveRecord::Base.transaction do
-      t.save!
-      players.each { |name| t.players.create!(name: name) }
-    end
+    t = Tournament.create_with_players(players)
     flash[:success] = "New tournament #{t.id} is created"
     redirect_to tournament_path(id: t.id)
 
