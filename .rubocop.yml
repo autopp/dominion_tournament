@@ -8,6 +8,9 @@ AllCops:
     - db/seeds.rb
     - vendor/bundle/**/*
 
+Rails:
+  Enabled: true
+
 Metrics/LineLength:
   Max: 100
 
