@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170314034412) do
+ActiveRecord::Schema.define(version: 20170314151311) do
 
   create_table "players", force: :cascade do |t|
     t.string   "name",          null: false
@@ -48,8 +48,9 @@ ActiveRecord::Schema.define(version: 20170314034412) do
   end
 
   create_table "tournaments", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "finished_count", default: 0, null: false
   end
 
 end
