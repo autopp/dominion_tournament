@@ -8,6 +8,10 @@ class Score < ApplicationRecord
     Rational(vp_numerator, vp_denominator)
   end
 
+  def tp
+    Rational(tp_numerator, tp_denominator)
+  end
+
   def <=>(other)
     raise TypeError, "operand is not a Score (#{other.inspect})" unless other.is_a?(Score)
 
