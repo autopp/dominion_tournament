@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170314151311) do
+ActiveRecord::Schema.define(version: 20170316004758) do
 
   create_table "players", force: :cascade do |t|
     t.string   "name",          null: false
@@ -41,9 +41,10 @@ ActiveRecord::Schema.define(version: 20170314151311) do
   end
 
   create_table "tables", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.integer  "round_id"
+    t.integer  "number",     default: 1, null: false
     t.index ["round_id"], name: "index_tables_on_round_id"
   end
 
