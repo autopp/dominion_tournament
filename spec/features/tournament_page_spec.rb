@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'tournament page', type: :feature do
-  before { visit tournament_path(id: 1) }
-
-  subject { page }
-
   context 'when ongoing rounds dose not exist' do
+    before do
+      create(:tournament_with_finished_two_rounds)
+      visit tournament_path(id: 1)
+    end
+
     context 'when click "Start new round"' do
       before { click_on 'Start new round' }
 
@@ -20,7 +21,13 @@ RSpec.describe 'tournament page', type: :feature do
   end
 
   context 'when ongoing round exists' do
+    before do
+      create(:tournament_with_ongoing_third_rounds)
+      visit tournament_path(id: 1)
+    end
+
     let(:edit_round_path) { edit_tournament_round_path(tournament_id: 1, id: 3) }
+    subject { page }
 
     it { is_expected.to have_link('Current round', href: edit_round_path) }
   end
