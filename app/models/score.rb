@@ -21,4 +21,8 @@ class Score < ApplicationRecord
       has_extra_turn? ? -1 : 1
     end
   end
+
+  def ==(other)
+    vp == other.vp && has_extra_turn == other.has_extra_turn
+  end
 end
