@@ -1,4 +1,26 @@
 class Player < ApplicationRecord
   belongs_to :tournament
   has_many :scores, dependent: :destroy
+
+  def total_tp
+    finished_scores.map(&:tp).reduce(&:+)
+  end
+
+  def total_vp
+    finished_scores.map(&:vp).reduce(&:+)
+  end
+
+  def ranking_value
+    [total_tp, total_vp] + rank_histroy
+  end
+
+  def rank_histroy
+    finished_scores.each_with_object([0, 0, 0, 0]).each do |score, history|
+      history[score.rank - 1] += 1
+    end
+  end
+
+  def finished_scores
+    scores.take(tournament.finished_count)
+  end
 end
