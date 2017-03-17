@@ -25,5 +25,9 @@ class TournamentsController < ApplicationController
   end
 
   def show
+    @tournament = Tournament.find(params[:id])
+    @ranking = @tournament.ranking
+    @ongoing_round = @tournament.ongoing_round
+    render :show
   end
 end

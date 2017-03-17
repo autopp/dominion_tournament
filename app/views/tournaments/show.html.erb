@@ -1,2 +1,28 @@
-<h1>Tournaments#show</h1>
-<p>Find me in app/views/tournaments/show.html.erb</p>
+<% provide(:title, "Tournament #{@tournament.id}") %>
+
+<table class="table">
+  <tr>
+    <td>Rank</td>
+    <td>Name</td>
+    <% @tournament.finished_count.times do |i| %>
+      <td>Round  <%= i + 1 %></td>
+    <% end %>
+    <td>Total</td>
+  </tr>
+  <% @ranking.each do |rank:, player:| %>
+    <tr class="ranking-row">
+      <td class="ranking-player-rank"><%= rank %></td>
+      <td class="ranking-player-name"><%= player.name %></td>
+      <% player.finished_scores.each do |score| %>
+        <td><%= format_point(score.tp) %>, <%= format_point(score.vp) %>VP</td>
+      <% end %>
+      <td class="ranking-player-total"><%= format_point(player.total_tp) %>, <%= format_point(player.total_vp) %>VP</td>
+    </tr>
+  <% end %>
+</table>
+
+<% if @ongoing_round %>
+  <%= link_to 'Current round', edit_tournament_round_path(@ongoing_round), class: 'btn btn-primary' %>
+<% else %>
+  <%= button_to 'Start new round', tournament_rounds_path(@tournament), method: :post, class: 'btn btn-primary' %>
+<% end %>

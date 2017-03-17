@@ -3,11 +3,11 @@ class Player < ApplicationRecord
   has_many :scores, dependent: :destroy
 
   def total_tp
-    finished_scores.map(&:tp).reduce(&:+)
+    finished_scores.map(&:tp).reduce(0, &:+)
   end
 
   def total_vp
-    finished_scores.map(&:vp).reduce(&:+)
+    finished_scores.map(&:vp).reduce(0, &:+)
   end
 
   def ranking_value
