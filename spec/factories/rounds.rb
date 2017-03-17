@@ -43,7 +43,7 @@ FactoryGirl.define do
         first_table = create(:table, round: r, number: 1)
         r.tables << first_table
         create_score(:score_24vp, :with_6tp, first_table, 'player1')  # 12 54
-        create_score(:score_9vp, :with_0tp, first_table, 'player5')   # 15 27
+        create_score(:score_9vp, :with_0tp, first_table, 'player5')   # 6 27
         create_score(:score_18vp, :with_2tp, first_table, 'player9')  # 6.5 48
         create_score(:score_18vp, :with_2tp, first_table, 'player10') # 6.5 48
 
@@ -68,17 +68,17 @@ FactoryGirl.define do
       after(:create) do |r|
         first_table = create(:table, round: r, number: 1)
         r.tables << first_table
-        create_score(:score_18vp, :with_1tp, first_table, 'player5') # 16 45
-        create_score(:score_30vp, :with_6tp, first_table, 'player1') # 18 84
-        create_score(:score_9vp, :with_0tp, first_table, 'player4')  # 7 57
-        create_score(:score_24vp, :with_3tp, first_table, 'player9') # 9.5 72
+        create_score(:score_24vp, :with_3tp, first_table, 'player1')  # 15 78
+        create_score(:score_9vp, :with_0tp, first_table, 'player4')   # 7 57
+        create_score(:score_18vp, :with_1tp, first_table, 'player9')  # 7.5 64
+        create_score(:score_30vp, :with_6tp, first_table, 'player10') # 12.5 78
 
         second_table = create(:table, round: r, number: 2)
         r.tables << second_table
-        create_score(:score, second_table, 'player10')
+        create_score(:score, second_table, 'player5')
         create_score(:score, second_table, 'player7')
-        create_score(:score, second_table, 'player8')
         create_score(:score, second_table, 'player11')
+        create_score(:score, second_table, 'player8')
 
         third_table = create(:table, round: r, number: 3)
         r.tables << third_table
