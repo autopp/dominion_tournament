@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170316160433) do
+ActiveRecord::Schema.define(version: 20170317003509) do
 
   create_table "players", force: :cascade do |t|
     t.string   "name",          null: false
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20170316160433) do
     t.integer  "table_id"
     t.integer  "tp_numerator"
     t.integer  "tp_denominator"
+    t.integer  "rank"
     t.index ["player_id"], name: "index_scores_on_player_id"
     t.index ["table_id"], name: "index_scores_on_table_id"
   end
