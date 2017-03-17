@@ -22,7 +22,7 @@
 </table>
 
 <% if @ongoing_round %>
-  <%= link_to 'Current round', edit_tournament_round_path(@ongoing_round), class: 'btn btn-primary' %>
+  <%= link_to 'Current round', edit_tournament_round_path(tournament_id: @tournament.id, id: @ongoing_round.number), class: 'btn btn-primary' %>
 <% else %>
   <%= button_to 'Start new round', tournament_rounds_path(@tournament), method: :post, class: 'btn btn-primary' %>
 <% end %>
