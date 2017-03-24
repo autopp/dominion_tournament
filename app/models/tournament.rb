@@ -16,6 +16,23 @@ class Tournament < ApplicationRecord
     rounds.count > finished_count ? rounds.last : nil
   end
 
+  def matchings
+    sorted_players = ranking.map { |hash| hash[:player] }
+    three_players_table_size = (4 - sorted_players.size) % 4
+    four_players_table_size = (sorted_players.size + 3) / 4 - three_players_table_size
+
+    matchings = []
+    sorted_players.take(four_players_table_size * 4).each_slice(4) do |players|
+      matchings << players
+    end
+
+    sorted_players.drop(four_players_table_size * 4).each_slice(3) do |players|
+      matchings << players
+    end
+
+    matchings
+  end
+
   def self.create_with_players(player_names)
     t = new
     ActiveRecord::Base.transaction do

@@ -18,4 +18,19 @@ RSpec.describe Tournament, type: :model do
       end
     end
   end
+
+  describe '#matchings' do
+    let(:tournament) { create(:tournament_with_finished_two_rounds) }
+
+    subject { tournament.matchings.map { |table| table.map(&:name) } }
+
+    it 'returns matchings by ranking' do
+      matchings = [
+        %w(player1 player4 player9 player10),
+        %w(player5 player7 player11 player8),
+        %w(player3 player6 player2)
+      ]
+      expect(subject).to eq(matchings)
+    end
+  end
 end
