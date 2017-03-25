@@ -37,7 +37,7 @@ RSpec.describe 'tournament page', type: :feature do
       end
 
       it 'create new round' do
-        expect(Round.last.attributes).to include(tournament_id: 1, number: 3)
+        expect(Round.last.attributes).to include('tournament_id' => 1, 'number' => 3)
       end
     end
   end
