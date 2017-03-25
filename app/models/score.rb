@@ -29,4 +29,24 @@ class Score < ApplicationRecord
   def ==(other)
     vp == other.vp && has_extra_turn == other.has_extra_turn
   end
+
+  def vp_text(player_num)
+    return '' unless vp_numerator
+    (vp * 4 / player_num).to_i.to_s
+  end
+
+  def update_by_input(input, player_num)
+    params = { has_extra_turn: input[:has_extra_turn] }
+    vp = input[:vp]
+    if vp.blank?
+      params.merge!(vp_numerator: nil, vp_denominator: nil)
+    elsif vp =~ /\A\d+\z/
+      vp = vp.to_r * player_num / 4
+      params.merge!(vp_numerator: vp.numerator, vp_denominator: vp.denominator)
+    else
+      return [false, "vp should be blank or integer (given '#{vp}')"]
+    end
+
+    [update(params), 'Update Error']
+  end
 end
