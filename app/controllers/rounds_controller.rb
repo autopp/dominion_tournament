@@ -30,15 +30,10 @@ class RoundsController < ApplicationController
     if !err_msgs.empty?
       @errors = err_msgs
       render :edit
-    elsif params[:save]
-      flash[:success] = 'Updated!'
-      redirect_to edit_tournament_round_path(params[:tournament_id], params[:id])
     elsif params[:finish]
-      # TODO
-      @errors = ['Finish round is not implemented']
-      render :edit
+      try_finish_round
     else
-      @errors = ['unrecognized action']
+      flash[:success] = 'Updated!'
       render :edit
     end
   end
@@ -66,5 +61,16 @@ class RoundsController < ApplicationController
         results << score.update_by_input(input, player_num)
       end
     end
+  end
+
+  def try_finish_round
+    not_completed_tables = @round.not_completed_tables
+    unless not_completed_tables.empty?
+      @errors = not_completed_tables.map { |table| "Table #{table.number} is not completed" }
+      render :edit
+      return
+    end
+    @round.finish!
+    redirect_to tournament_path(id: params[:tournament_id])
   end
 end

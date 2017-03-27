@@ -12,8 +12,18 @@ class Table < ApplicationRecord
     offset = 0
     sorted_scores.each_with_object({}) do |(_, scores), ret|
       sum = DISTRIBUTION_OF_VPS[offset, scores.size].reduce(&:+)
-      ret[Rational(sum, scores.size)] = scores.map(&:player)
+      ret[Rational(sum, scores.size)] = scores
       offset += scores.size
+    end
+  end
+
+  def finish!
+    rank = 1
+    aggregate.each do |tp, scores|
+      scores.each do |score|
+        score.update!(rank: rank, tp_numerator: tp.numerator, tp_denominator: tp.denominator)
+      end
+      rank += scores.count
     end
   end
 end

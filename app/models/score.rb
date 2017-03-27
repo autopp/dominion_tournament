@@ -49,4 +49,8 @@ class Score < ApplicationRecord
 
     [update(params), 'Update Error']
   end
+
+  def complete?
+    vp_numerator && vp_denominator
+  end
 end
