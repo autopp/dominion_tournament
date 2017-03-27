@@ -5,11 +5,11 @@ class Score < ApplicationRecord
   include Comparable
 
   def vp
-    Rational(vp_numerator, vp_denominator)
+    vp_numerator && vp_denominator ? Rational(vp_numerator, vp_denominator) : nil
   end
 
   def tp
-    Rational(tp_numerator, tp_denominator)
+    tp_numerator && tp_denominator ? Rational(tp_numerator, tp_denominator) : nil
   end
 
   def <=>(other)

@@ -1,4 +1,6 @@
 class TournamentsController < ApplicationController
+  before_action only: [:show, :update] { @tournament = Tournament.find(params[:id]) }
+
   def index
     @tournaments = Tournament.all
   end
@@ -21,11 +23,27 @@ class TournamentsController < ApplicationController
 
   rescue => e
     @errors = [e.message]
-    render :new
+    render_new
   end
 
   def show
-    @tournament = Tournament.find(params[:id])
+    render_show
+  end
+
+  def update
+    status, message = @tournament.rollback
+    if status
+      flash[:success] = message
+    else
+      @errors = [message]
+    end
+
+    render_show
+  end
+
+  private
+
+  def render_show
     @ranking = @tournament.ranking
     @ongoing_round = @tournament.ongoing_round
     render :show

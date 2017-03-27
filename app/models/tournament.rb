@@ -33,6 +33,26 @@ class Tournament < ApplicationRecord
     matchings
   end
 
+  def rollback
+    msg = ActiveRecord::Base.transaction do
+      if ongoing_round
+        delete_ongoring_round!
+        "Round #{finished_count + 1} is deleted"
+      else
+        Round.find_by(tournament_id: id, number: finished_count).rollback!
+        self.finished_count -= 1
+        save!
+        "Round #{finished_count + 1} backed to ongoing"
+      end
+    end
+
+    [true, msg]
+  rescue => e
+    logger.error(e.message)
+    logger.error(e.backtrace.join("\n"))
+    [false, e.message]
+  end
+
   def self.create_with_players(player_names)
     t = new
     ActiveRecord::Base.transaction do
@@ -42,5 +62,11 @@ class Tournament < ApplicationRecord
       end
     end
     t
+  end
+
+  private
+
+  def delete_ongoring_round!
+    ongoing_round.destroy!
   end
 end

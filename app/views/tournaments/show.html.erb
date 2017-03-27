@@ -26,3 +26,5 @@
 <% else %>
   <%= button_to 'Start new round', tournament_rounds_path(@tournament), method: :post, class: 'btn btn-primary' %>
 <% end %>
+
+<%= button_to 'Rollback', tournament_path(@tournament), method: :put, class: 'btn btn-primary' %>

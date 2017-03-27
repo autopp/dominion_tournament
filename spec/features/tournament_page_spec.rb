@@ -40,6 +40,17 @@ RSpec.describe 'tournament page', type: :feature do
         expect(Round.last.attributes).to include('tournament_id' => 1, 'number' => 3)
       end
     end
+
+    context 'and when click rollback' do
+      it 'cancel the round 2' do
+        click_on 'Rollback'
+
+        expect(page).to have_css('div.alert-success', text: 'Round 2 is backed to ongoing')
+        tournament = Tournament.find(1)
+        expect(tournament.finished_count).to eq(1)
+        expect(tournament.ongoing_round).to eq(Round.find_by(tournament_id: 1, number: 2))
+      end
+    end
   end
 
   context 'when ongoing round exists' do
@@ -54,5 +65,14 @@ RSpec.describe 'tournament page', type: :feature do
     subject { page }
 
     it { is_expected.to have_link('Current round', href: edit_round_path) }
+
+    context 'and when click rollback' do
+      it 'delete the round 3' do
+        click_on 'Rollback'
+
+        expect(page).to have_css('div.alert-success', text: 'Round 3 is deleted')
+        expect(Round.find_by(tournament_id: 1, number: 3)).to be_nil
+      end
+    end
   end
 end
