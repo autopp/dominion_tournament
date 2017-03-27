@@ -1,30 +1,49 @@
 <% provide(:title, "Tournament #{@tournament.id}") %>
 
-<table class="table">
-  <tr>
-    <td>Rank</td>
-    <td>Name</td>
-    <% @tournament.finished_count.times do |i| %>
-      <td>Round  <%= i + 1 %></td>
-    <% end %>
-    <td>Total</td>
-  </tr>
-  <% @ranking.each do |rank:, player:| %>
-    <tr class="ranking-row">
-      <td class="ranking-player-rank"><%= rank %></td>
-      <td class="ranking-player-name"><%= player.name %></td>
-      <% player.finished_scores.each do |score| %>
-        <td><%= format_point(score.tp) %>, <%= format_point(score.vp) %>VP</td>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <td rowspan="2">Rank</td>
+      <td rowspan="2">Name</td>
+      <% @tournament.finished_count.times do |i| %>
+        <td colspan="2"><%= link_to "Round #{i + 1}", tournament_round_path(tournament_id: @tournament.id, number: i + 1) %></td>
       <% end %>
-      <td class="ranking-player-total"><%= format_point(player.total_tp) %>, <%= format_point(player.total_vp) %>VP</td>
+      <td colspan="2">Total</td>
     </tr>
-  <% end %>
+    <tr>
+      <% @tournament.finished_count.times do |i| %>
+        <td>TP</td>
+        <td>VP</td>
+      <% end %>
+      <td>TP</td>
+      <td>VP</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @ranking.each do |rank:, player:| %>
+      <tr class="ranking-row">
+        <td class="ranking-player-rank"><%= rank %></td>
+        <td class="ranking-player-name"><%= player.name %></td>
+        <% player.finished_scores.each do |score| %>
+          <td><%= format_point(score.tp) %></td>
+          <td><%= format_point(score.vp) %></td>
+        <% end %>
+        <td class="ranking-player-total"><%= format_point(player.total_tp) %></td>
+        <td><%= format_point(player.total_vp) %></td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
-<% if @ongoing_round %>
-  <%= link_to 'Current round', edit_tournament_round_path(tournament_id: @tournament.id, id: @ongoing_round.number), class: 'btn btn-primary' %>
-<% else %>
-  <%= button_to 'Start new round', tournament_rounds_path(@tournament), method: :post, class: 'btn btn-primary' %>
-<% end %>
-
-<%= button_to 'Rollback', tournament_path(@tournament), method: :put, class: 'btn btn-primary' %>
+<div class="row">
+  <div class="col-md-2 col-md-offset-4 center">
+    <% if @ongoing_round %>
+    <%= link_to 'Current round', edit_tournament_round_path(tournament_id: @tournament.id, id: @ongoing_round.number), class: 'btn btn-primary' %>
+    <% else %>
+    <%= button_to 'Start new round', tournament_rounds_path(@tournament), method: :post, class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+  <div class="col-md-2 center">
+    <%= button_to 'Rollback', tournament_path(@tournament), method: :put, class: 'btn btn-primary' %>
+  </div>
+</div>

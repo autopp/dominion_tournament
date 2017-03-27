@@ -35,6 +35,7 @@ body {
 
 h1 {
   font-size: 3em;
+  font-weight: bold;
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
@@ -52,6 +53,10 @@ h2 {
 p {
   font-size: 1.1em;
   line-height: 1.7em;
+}
+
+.btn {
+  font-weight: bold;
 }
 
 /* header */
