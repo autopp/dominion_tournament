@@ -29,8 +29,12 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1;
 }
 
-body {
+body, textarea {
   font-family: "游ゴシック体", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+
+textarea {
+  font-size: 1.1em;
 }
 
 h1 {

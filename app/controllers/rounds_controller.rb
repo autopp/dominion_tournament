@@ -71,6 +71,7 @@ class RoundsController < ApplicationController
       return
     end
     @round.finish!
+    flash[:success] = "Round #{@round.number} is finished!"
     redirect_to tournament_path(id: params[:tournament_id])
   end
 end
