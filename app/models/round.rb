@@ -15,4 +15,12 @@ class Round < ApplicationRecord
       table.scores.all?(&:complete?)
     end
   end
+
+  def rollback!
+    tables.each do |table|
+      table.scores.each do |score|
+        score.update!(tp_numerator: nil, tp_denominator: nil, rank: nil)
+      end
+    end
+  end
 end

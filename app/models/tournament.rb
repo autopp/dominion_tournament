@@ -42,14 +42,12 @@ class Tournament < ApplicationRecord
         Round.find_by(tournament_id: id, number: finished_count).rollback!
         self.finished_count -= 1
         save!
-        "Round #{finished_count + 1} backed to ongoing"
+        "Round #{finished_count + 1} is backed to ongoing"
       end
     end
 
     [true, msg]
   rescue => e
-    logger.error(e.message)
-    logger.error(e.backtrace.join("\n"))
     [false, e.message]
   end
 
