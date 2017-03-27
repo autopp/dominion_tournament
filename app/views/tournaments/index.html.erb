@@ -1,9 +1,12 @@
 <% provide(:title, 'List of tournaments') %>
 
-<ul>
-  <% @tournaments.each do |t| %>
-    <li><%= link_to t.id, tournament_path(t) %></li>
-  <% end %>
-</ul>
-
-<%= link_to 'New Tournament', new_tournament_path, class: 'btn btn-primary' %>
+<div class="center">
+  <%= link_to 'New Tournament', new_tournament_path, class: 'btn btn-primary' %>
+</div>
+<div class="center-block">
+  <ul class="list-inline center">
+    <% @tournaments.each do |t| %>
+      <li><%= link_to t.id, tournament_path(t) %></li>
+    <% end %>
+  </ul>
+</div>
