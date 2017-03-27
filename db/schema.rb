@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317003509) do
+ActiveRecord::Schema.define(version: 20170327150822) do
 
   create_table "players", force: :cascade do |t|
     t.string   "name",          null: false
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "tournament_id"
+    t.integer  "droped_round"
     t.index ["tournament_id"], name: "index_players_on_tournament_id"
   end
 
