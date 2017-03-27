@@ -21,7 +21,7 @@
           <td><%= score.player.name %></td>
           <td><%= score.vp_text(player_num) %></td>
           <td><%= check_box_tag('', true , score.has_extra_turn) %></td>
-          <td><%= score.tp_text(player_num) %></td>
+          <td><%= format_point(score.tp) %></td>
         </tr>
       <% end %>
     <% end %>
