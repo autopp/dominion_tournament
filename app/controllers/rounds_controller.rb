@@ -1,4 +1,8 @@
 class RoundsController < ApplicationController
+  before_action only: [:show, :edit, :update] do
+    @round = Round.find_by(tournament_id: params[:tournament_id], number: params[:id])
+  end
+
   def create
     @tournament = Tournament.find(params[:tournament_id])
     ActiveRecord::Base.transaction do
@@ -9,17 +13,17 @@ class RoundsController < ApplicationController
   end
 
   def show
-  end
-
-  def index
+    return unless @round.tournament.ongoing_round == @round
+    redirect_to edit_tournament_round_path(tournament_id: params[:tournament_id],
+                                           number: params[:id])
   end
 
   def edit
-    @round = Round.find_by(tournament_id: params[:tournament_id], number: params[:id])
+    return if @round.tournament.ongoing_round == @round
+    redirect_to tournament_round_path(tournament_id: params[:tournament_id], number: params[:id])
   end
 
   def update
-    @round = Round.find_by(tournament_id: params[:tournament_id], number: params[:id])
     results = update_scores
     err_msgs = results.reject(&:first).map { |_status, msg| msg }
 
