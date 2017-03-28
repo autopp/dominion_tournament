@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <td rowspan="2">Rank</td>
-      <td rowspan="2">Name</td>
+      <td rowspan="2" colspan="2">Name</td>
       <% @tournament.finished_count.times do |i| %>
         <td colspan="2"><%= link_to "Round #{i + 1}", tournament_round_path(tournament_id: @tournament.id, id: i + 1) %></td>
       <% end %>
@@ -24,9 +24,20 @@
       <tr class="ranking-row">
         <td class="ranking-player-rank"><%= rank %></td>
         <td class="ranking-player-name"><%= player.name %></td>
+        <% if player.droped_round %>
+          <td class="center"><%= button_to('Droped', tournament_path(@tournament), method: :put, class: 'btn btn-danger', disabled: true) %></td>
+        <% else %>
+          <td class="center"><%= link_to('Drop out', tournament_path(@tournament, dropout: player.id), method: :put, class: 'btn btn-warning', disabled: @ongoing_round) %></td>
+        <% end %>
+        <% i = 0 %>
         <% player.finished_scores.each do |score| %>
           <td><%= format_point(score.tp) %></td>
           <td><%= format_point(score.vp) %></td>
+          <% i += 1 %>
+        <% end %>
+        <% (@tournament.finished_count - i).times do %>
+          <td>-</td>
+          <td>-</td>
         <% end %>
         <td class="ranking-player-total"><%= format_point(player.total_tp) %></td>
         <td><%= format_point(player.total_vp) %></td>

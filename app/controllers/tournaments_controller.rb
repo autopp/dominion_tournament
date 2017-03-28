@@ -31,11 +31,15 @@ class TournamentsController < ApplicationController
   end
 
   def update
-    status, message = @tournament.rollback
-    if status
-      flash[:success] = message
+    if params[:dropout]
+      logger.warn("Request player id #{params[:dropout]} to drop, but not implemeted")
     else
-      @errors = [message]
+      status, message = @tournament.rollback
+      if status
+        flash[:success] = message
+      else
+        @errors = [message]
+      end
     end
 
     render_show
