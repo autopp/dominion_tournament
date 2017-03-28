@@ -40,6 +40,7 @@ class Tournament < ApplicationRecord
         "Round #{finished_count + 1} is deleted"
       else
         Round.find_by(tournament_id: id, number: finished_count).rollback!
+        restore_players!
         self.finished_count -= 1
         save!
         "Round #{finished_count + 1} is backed to ongoing"
@@ -66,5 +67,11 @@ class Tournament < ApplicationRecord
 
   def delete_ongoring_round!
     ongoing_round.destroy!
+  end
+
+  def restore_players!
+    Player.where(tournament_id: id, droped_round: finished_count).find_each do |player|
+      player.update!(droped_round: nil)
+    end
   end
 end
