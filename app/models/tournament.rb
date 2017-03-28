@@ -17,7 +17,7 @@ class Tournament < ApplicationRecord
   end
 
   def matchings
-    sorted_players = ranking.map { |hash| hash[:player] }
+    sorted_players = ranking.map { |hash| hash[:player] }.reject(&:droped_round)
     three_players_table_size = (4 - sorted_players.size) % 4
     four_players_table_size = (sorted_players.size + 3) / 4 - three_players_table_size
 
