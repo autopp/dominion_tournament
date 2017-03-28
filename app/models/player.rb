@@ -23,4 +23,12 @@ class Player < ApplicationRecord
   def finished_scores
     scores.take(tournament.finished_count)
   end
+
+  def dropout
+    self.droped_round = tournament.finished_count
+    status = save
+
+    message = status ? "#{name} is droped out" : "#{name} cannot drop"
+    [status, message]
+  end
 end
