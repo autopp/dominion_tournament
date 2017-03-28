@@ -17,7 +17,8 @@ RSpec.describe 'tournament page', type: :feature do
 
     it 'show each player result' do
       colmuns = ranking_rows.first.all('td')
-      expect(colmuns.map(&:text)).to eq(['1', 'player1', '6, 30VP', '6, 24VP', '12, 54VP'])
+      expected = ['1', 'player1', 'Drop out', '6', '30', '6', '24', '12', '54']
+      expect(colmuns.map(&:text)).to eq(expected)
     end
   end
 
