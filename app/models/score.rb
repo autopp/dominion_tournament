@@ -45,7 +45,7 @@ class Score < ApplicationRecord
     vp = input[:vp]
     if vp.blank?
       params.merge!(vp_numerator: nil, vp_denominator: nil)
-    elsif vp =~ /\A\d+\z/
+    elsif vp =~ /\A[-+]?\d+\z/
       vp = vp.to_r * player_num / 4
       params.merge!(vp_numerator: vp.numerator, vp_denominator: vp.denominator)
     else
