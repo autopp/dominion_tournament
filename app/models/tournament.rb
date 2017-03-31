@@ -3,7 +3,7 @@ class Tournament < ApplicationRecord
   has_many :rounds, dependent: :destroy
 
   def ranking
-    sorted = players.group_by(&:ranking_value).sort_by { |k, _| k }
+    sorted = players.includes(:scores).group_by(&:ranking_value).sort_by { |k, _| k }
 
     rank = 1
     sorted.reverse.each_with_object([]) do |(_, players), ranking|

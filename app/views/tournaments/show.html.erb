@@ -36,7 +36,7 @@
         <% end %>
         </td>
         <% i = 0 %>
-        <% player.finished_scores.each do |score| %>
+        <% @scores[player.id].each do |score| %>
           <td><%= format_point(score.tp) %></td>
           <td><%= format_point(score.vp) %></td>
           <% i += 1 %>

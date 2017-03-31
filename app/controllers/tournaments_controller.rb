@@ -51,6 +51,18 @@ class TournamentsController < ApplicationController
   def render_show
     @ranking = @tournament.ranking
     @ongoing_round = @tournament.ongoing_round
+
+    player_ids = Player.where(tournament_id: @tournament.id).ids
+
+    @scores = Score.where(player_id: player_ids).group_by(&:player_id)
+    player_ids.each do |id|
+      @scores[id] ||= []
+    end
+
+    @scores.each do |_id, scores|
+      scores.pop([scores.size - @tournament.finished_count, 0].max)
+    end
+
     render :show
   end
 end
