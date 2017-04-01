@@ -5,5 +5,5 @@ Rails.application.routes.draw do
     resources :rounds, only: [:create, :show, :edit, :update]
   end
 
-  get '/tournaments/:tournament_id/rounds/:id/list', to: 'rounds#list'
+  get '/tournaments/:tournament_id/rounds/:id/list', to: 'rounds#list', as: 'round_list'
 end
