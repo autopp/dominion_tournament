@@ -1,4 +1,5 @@
 <% provide(:title, "Tournament #{@round.tournament_id}: Round #{@round.number}") %>
+<% provide(:back_path, tournament_path(id: @round.tournament_id)) %>
 
 <%= link_to 'Mathings list', round_list_path %>
 <%= form_tag(tournament_round_path(tournament_id: @round.tournament_id, id: @round.number), method: :put) do %>

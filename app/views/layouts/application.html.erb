@@ -15,6 +15,7 @@
         <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
       <% end %>
       <%= render 'shared/error_messages', object: @errors %>
+      <%= link_to('Back', yield(:back_path)) %>
       <h1><%= yield(:title) %></h1>
       <%= yield %>
     </div>
