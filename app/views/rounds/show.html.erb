@@ -10,7 +10,7 @@
     <td>TP</td>
   </thead>
   <tbody>
-    <% @round.tables.each do |table| %>
+    <% @tables.each do |table| %>
       <% player_num = table.scores.size %>
       <% table.scores.sort_by(&:rank).each_with_index do |score, i| %>
         <tr>

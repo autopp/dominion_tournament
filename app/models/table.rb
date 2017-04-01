@@ -1,6 +1,6 @@
 class Table < ApplicationRecord
   belongs_to :round
-  has_many :scores, dependent: :destroy
+  has_many :scores, -> { includes(:player) }, dependent: :destroy
 
   DISTRIBUTION_OF_VPS = [6, 3, 1, 0].freeze
 

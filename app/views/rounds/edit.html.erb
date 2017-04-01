@@ -9,7 +9,7 @@
       <td>Has extra turn?</td>
     </thead>
     <tbody>
-      <% @round.tables.each do |table| %>
+      <% @tables.each do |table| %>
         <% table_id = table.id %>
         <% player_num = table.scores.size %>
         <% table.scores.each_with_index do |score, i| %>
