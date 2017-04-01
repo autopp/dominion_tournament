@@ -57,6 +57,7 @@ class RoundsController < ApplicationController
   end
 
   def update_scores
+    return [[false, 'Already finished']] if @round.tournament.finished_count >= @round.number
     params[:scores].each_with_object([]) do |(table_id, scores), results|
       table = Table.find(table_id)
       player_num = table.scores.count
