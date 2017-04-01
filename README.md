@@ -1,24 +1,24 @@
-# README
+# Dominion Tournament
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple web application for swiss-system tournament of dominion.
 
-Things you may want to cover:
+## Environment
 
-* Ruby version
+Tested at:
 
-* System dependencies
+- OS X 10.12.3
+- Ruby 2.3.3
+- Bunder 1.14.3
 
-* Configuration
+## Run
 
-* Database creation
+```
+$ git clone git@github.com:autopp/dominion_tournament.git && cd dominion_tournament
+$ bundle install --path vendor/bundle
+$ bundle exec rake db:migrate
+$ bundle exec rails s -b 0.0.0.0
+```
 
-* Database initialization
+## Author
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[AuToPP](https://twitter.com/AuToPP)
