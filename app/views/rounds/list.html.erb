@@ -1,0 +1,18 @@
+<% provide(:title, "Tournament #{@round.tournament_id}: Round #{@round.number}") %>
+
+<h2>Mathings</h2>
+<table class="table table-bordered">
+  <tbody>
+    <% @tables.each.with_index(1) do |table, i| %>
+      <tr>
+        <td><%= i %></td>
+        <% table.scores.each do |score| %>
+          <td><%= score.player.name %></td>
+        <% end %>
+        <% (4 - table.scores.size).times do %>
+          <td>-</td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

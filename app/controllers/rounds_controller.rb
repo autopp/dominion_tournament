@@ -1,5 +1,5 @@
 class RoundsController < ApplicationController
-  before_action only: [:show, :edit, :update] do
+  before_action only: [:show, :edit, :list, :update] do
     @round = Round.find_by(tournament_id: params[:tournament_id], number: params[:id])
     @tables = @round.tables.includes(:scores)
   end
@@ -17,6 +17,9 @@ class RoundsController < ApplicationController
     return unless @round.tournament.ongoing_round == @round
     redirect_to edit_tournament_round_path(tournament_id: params[:tournament_id],
                                            number: params[:id])
+  end
+
+  def list
   end
 
   def edit
