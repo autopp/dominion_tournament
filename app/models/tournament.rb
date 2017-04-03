@@ -41,7 +41,7 @@ class Tournament < ApplicationRecord
       else
         Round.find_by(tournament_id: id, number: finished_count).rollback!
         restore_players!
-        self.finished_count -= 1
+        self.finished_count -= 1 if finished_count > 0
         save!
         "Round #{finished_count + 1} is backed to ongoing"
       end
