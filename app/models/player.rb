@@ -25,6 +25,10 @@ class Player < ApplicationRecord
   end
 
   def dropout
+    unless Tournament.valid_players_count?(tournament.players.count - 1)
+      return [false, "#{name} cannot drop (Too few players)"]
+    end
+
     self.droped_round = tournament.finished_count
     status = save
 
