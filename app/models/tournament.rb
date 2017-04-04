@@ -2,6 +2,8 @@ class Tournament < ApplicationRecord
   has_many :players, dependent: :destroy
   has_many :rounds, dependent: :destroy
 
+  INVALID_PLAYER_COUNTS = [1, 2, 5].freeze
+
   def ranking
     sorted = players.includes(:scores).group_by(&:ranking_value).sort_by { |k, _| k }
 
@@ -53,6 +55,11 @@ class Tournament < ApplicationRecord
   end
 
   def self.create_with_players(player_names)
+    count = player_names.count
+    unless Tournament.valid_players_count?(count)
+      raise "cannot create #{count} player(s) tournament"
+    end
+
     t = new
     ActiveRecord::Base.transaction do
       t.save!
@@ -61,6 +68,10 @@ class Tournament < ApplicationRecord
       end
     end
     t
+  end
+
+  def self.valid_players_count?(count)
+    !INVALID_PLAYER_COUNTS.include?(count)
   end
 
   private

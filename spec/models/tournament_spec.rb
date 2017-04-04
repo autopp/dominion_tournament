@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Tournament, type: :model do
   describe '.create_with_players' do
-    context 'with ["foo", "bar"]' do
-      let(:names) { %w(foo bar) }
+    context 'with ["foo", "bar", "baz"]' do
+      let(:names) { %w(foo bar baz) }
       subject { described_class.create_with_players(names) }
 
       it { is_expected.to be_a(Tournament) }
@@ -13,7 +13,7 @@ RSpec.describe Tournament, type: :model do
       end
 
       it 'create related player records' do
-        expect { subject }.to change { Player.count }.by(2)
+        expect { subject }.to change { Player.count }.by(3)
         expect(subject.players.map(&:name)).to eq(names)
       end
     end
