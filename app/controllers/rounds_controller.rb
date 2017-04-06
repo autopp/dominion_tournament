@@ -75,8 +75,8 @@ class RoundsController < ApplicationController
   def try_finish_round
     not_completed_tables = @round.not_completed_tables
     unless not_completed_tables.empty?
-      @errors = not_completed_tables.map { |table| "Table #{table.number} is not completed" }
-      render :edit
+      errors = not_completed_tables.map { |table| "Table #{table.number} is not completed" }
+      render_with_errors :edit, errors: errors
       return
     end
     @round.finish!

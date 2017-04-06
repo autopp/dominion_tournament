@@ -22,8 +22,7 @@ class TournamentsController < ApplicationController
     redirect_to tournament_path(id: t.id)
 
   rescue => e
-    @errors = [e.message]
-    render_new
+    render_with_errors :new, errors: [e.message]
   end
 
   def show
