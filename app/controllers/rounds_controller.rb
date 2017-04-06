@@ -28,12 +28,16 @@ class RoundsController < ApplicationController
   end
 
   def update
+    if @round.finished?
+      render_with_errors :edit, errors: ['Already finished']
+      return
+    end
+
     results = update_scores
     err_msgs = results.reject(&:first).map { |_status, msg| msg }
 
     if !err_msgs.empty?
-      @errors = err_msgs
-      render :edit
+      render_with_errors :edit, errors: err_msgs
     elsif params[:finish]
       try_finish_round
     else
@@ -57,13 +61,13 @@ class RoundsController < ApplicationController
   end
 
   def update_scores
-    return [[false, 'Already finished']] if @round.tournament.finished_count >= @round.number
-    params[:scores].each_with_object([]) do |(table_id, scores), results|
-      table = Table.find(table_id)
-      player_num = table.scores.count
-      scores.each do |score_id, input|
-        score = Score.find(score_id)
-        results << score.update_by_input(input, player_num)
+    input = params[:scores]
+    Table.where(round_id: @round.id).includes(:scores).each_with_object([]) do |table, results|
+      scores = table.scores
+      player_num = scores.count
+      table_inputs = input[table.id.to_s]
+      scores.each do |score|
+        results << score.update_by_input(table_inputs[score.id.to_s], player_num)
       end
     end
   end

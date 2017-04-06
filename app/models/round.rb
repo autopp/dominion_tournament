@@ -2,6 +2,10 @@ class Round < ApplicationRecord
   belongs_to :tournament
   has_many :tables, dependent: :destroy
 
+  def finished?
+    tournament.finished_count >= number
+  end
+
   def finish!
     ActiveRecord::Base.transaction do
       tables.each(&:finish!)
