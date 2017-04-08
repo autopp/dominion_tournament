@@ -4,6 +4,14 @@
 
 A simple web application for swiss-system tournament of dominion.
 
+This application supports:
+
+- generating matchings of round
+- management of players, victory points and tournament points
+
+![](ss/tournament.png)  
+![](ss/round.png)
+
 ## Environment
 
 Tested at:
@@ -22,6 +30,7 @@ $ bundle exec rails s -b 0.0.0.0
 ```
 
 ## License
+
 MIT License.
 
 This application uses some code of [Rails Tutorial (Copyright (c) 2016 Michael Hartl)](https://bitbucket.org/railstutorial/sample_app_4th_ed/src/521772b63b80da4f6b62ce3bccf98e9fdbf7f98f/LICENSE.md?fileviewer=file-view-default).
