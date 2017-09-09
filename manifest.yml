@@ -1,7 +1,6 @@
 ---
 applications:
   - name: dominion-tournament
-    host: dominion-tournament.autopp
     buildpack: https://github.com/cloudfoundry/ruby-buildpack.git
     command: bundle exec rake cf:on_first_instance db:migrate && bundle exec rails server -b 0.0.0.0
     env:
