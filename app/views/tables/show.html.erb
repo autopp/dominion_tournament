@@ -1,0 +1,28 @@
+<% provide(:title, "Tournament #{@round.tournament_id}: Round #{@round.number}: Table #{@table.number}") %>
+<% provide(:back_path, tournament_round_path(tournament_id: @round.tournament_id, id: @round.number)) %>
+
+<table class="table table-bordered">
+  <thead>
+    <td>Table No.</td>
+    <td>Rank</td>
+    <td>Name</td>
+    <td>VP</td>
+    <td>Has extra turn?</td>
+    <td>TP</td>
+  </thead>
+  <tbody>
+    <% player_num = @table.scores.size %>
+    <% @table.scores.sort_by(&:rank).each_with_index do |score, i| %>
+      <tr>
+        <% if i.zero? %>
+          <td rowspan="<%= player_num %>"><%= @table.number %></td>
+        <% end %>
+        <td><%= score.rank %></td>
+        <td><%= score.player.name %></td>
+        <td><%= score.vp_text(player_num) %></td>
+        <td><%= check_box_tag('', true , score.has_extra_turn, disabled: true) %></td>
+        <td><%= format_point(score.tp) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
