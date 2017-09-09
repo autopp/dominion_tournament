@@ -9,3 +9,13 @@ machine:
 test:
   post:
     - bundle exec rubocop -D
+
+deployment:
+  pws:
+    owner: autopp
+    commands:
+      - curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&source=github" | tar -zx
+      - mv cf $HOME/bin
+      - cf version
+      - cf login -a "$CF_API" -u "$CF_USERNAME" -p "$CF_PASSWORD" -o "$CF_ORG" -s "$CF_SPACE"
+      - cf push
