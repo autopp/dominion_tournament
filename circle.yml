@@ -6,6 +6,10 @@ machine:
   ruby:
     version: 2.3.3
 
+database:
+  pre:
+    - cp config/database.yml config/database.yml.orig
+
 test:
   post:
     - bundle exec rubocop -D
@@ -15,6 +19,7 @@ deployment:
     branch: master
     owner: autopp
     commands:
+      - mv config/database.yml.orig config/database.yml
       - curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&source=github" | tar -zx
       - mv cf $HOME/bin
       - cf version

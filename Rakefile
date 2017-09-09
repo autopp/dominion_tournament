@@ -13,7 +13,6 @@ namespace :cf do
                      rescue
                        nil
                      end
-    puts "instance_index: #{instance_index}"
     exit(0) unless instance_index == 0
   end
 end
