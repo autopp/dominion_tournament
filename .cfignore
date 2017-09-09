@@ -1,3 +1,4 @@
 vendor/bundle
 .git
 .gitignore
+public/assets
