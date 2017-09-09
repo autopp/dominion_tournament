@@ -12,6 +12,7 @@ test:
 
 deployment:
   pws:
+    branch: master
     owner: autopp
     commands:
       - curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&source=github" | tar -zx
