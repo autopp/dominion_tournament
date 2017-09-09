@@ -2,3 +2,8 @@ vendor/bundle
 .git
 .gitignore
 public/assets
+db/*.sqlite3
+db/*.sqlite3-journal
+log/*.log
+tmp/*
+!tmp/.keep
