@@ -29,11 +29,20 @@ class TablesController < ApplicationController
 
     if !err_msgs.empty?
       render_with_errors :edit, errors: err_msgs
-    elsif params[:finish]
-      try_finish_round
     else
       flash[:success] = 'Updated!'
-      render :edit
+      redirect_to edit_tournament_round_path(tournament_id: @round.tournament_id, id: @round.number)
+    end
+  end
+
+  private
+
+  def update_scores
+    inputs = params[:scores]
+    scores = @table.scores
+    player_num = scores.count
+    scores.map do |score|
+      score.update_by_input(inputs[score.id.to_s], player_num)
     end
   end
 end
