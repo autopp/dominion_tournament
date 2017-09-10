@@ -33,17 +33,7 @@ class RoundsController < ApplicationController
       return
     end
 
-    results = update_scores
-    err_msgs = results.reject(&:first).map { |_status, msg| msg }
-
-    if !err_msgs.empty?
-      render_with_errors :edit, errors: err_msgs
-    elsif params[:finish]
-      try_finish_round
-    else
-      flash[:success] = 'Updated!'
-      render :edit
-    end
+    try_finish_round
   end
 
   private
@@ -58,18 +48,6 @@ class RoundsController < ApplicationController
     end
 
     round
-  end
-
-  def update_scores
-    input = params[:scores]
-    Table.where(round_id: @round.id).includes(:scores).each_with_object([]) do |table, results|
-      scores = table.scores
-      player_num = scores.count
-      table_inputs = input[table.id.to_s]
-      scores.each do |score|
-        results << score.update_by_input(table_inputs[score.id.to_s], player_num)
-      end
-    end
   end
 
   def try_finish_round
