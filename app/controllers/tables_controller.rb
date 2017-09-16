@@ -41,8 +41,9 @@ class TablesController < ApplicationController
     inputs = params[:scores]
     scores = @table.scores
     player_num = scores.count
+    total_vp_used = @round.tournament.total_vp_used
     scores.map do |score|
-      score.update_by_input(inputs[score.id.to_s], player_num)
+      score.update_by_input(inputs[score.id.to_s], player_num, total_vp_used)
     end
   end
 end

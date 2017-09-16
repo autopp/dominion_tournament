@@ -40,13 +40,14 @@ class Score < ApplicationRecord
     (tp * 4 / player_num).to_i.to_s
   end
 
-  def update_by_input(input, player_num)
+  def update_by_input(input, player_num, total_vp_used)
     params = { has_extra_turn: input[:has_extra_turn] }
     vp = input[:vp]
     if vp.blank?
       params.merge!(vp_numerator: nil, vp_denominator: nil)
     elsif vp =~ /\A[-+]?\d+\z/
-      vp = vp.to_r * player_num / 4
+      vp = vp.to_r
+      vp *= player_num / 4 if total_vp_used
       params.merge!(vp_numerator: vp.numerator, vp_denominator: vp.denominator)
     else
       return [false, "vp should be blank or integer (given '#{vp}')"]
