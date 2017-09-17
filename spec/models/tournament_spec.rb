@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Tournament, type: :model do
   describe '.create_with_players' do
-    context 'with ["foo", "bar", "baz"]' do
+    context 'with ["foo", "bar", "baz"], true, true' do
       let(:names) { %w(foo bar baz) }
-      subject { described_class.create_with_players(names) }
+      subject { described_class.create_with_players(names, true, true) }
 
       it { is_expected.to be_a(Tournament) }
 
