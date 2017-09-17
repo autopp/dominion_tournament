@@ -77,4 +77,19 @@ RSpec.describe Score, type: :model do
       end
     end
   end
+
+  describe '#vp_text' do
+    subject { score.vp_text(3) }
+
+    context 'when numerator is not given' do
+      it { is_expected.to eq('') }
+    end
+
+    context 'when numerator and denominator are given' do
+      let(:vp_numerator) { 90 }
+      let(:vp_denominator) { 4 }
+
+      it { is_expected.to eq('30') }
+    end
+  end
 end
