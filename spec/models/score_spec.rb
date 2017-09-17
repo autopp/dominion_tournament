@@ -150,4 +150,19 @@ RSpec.describe Score, type: :model do
       it { is_expected.to eq([false, "vp should be blank or integer (given 'abc')"]) }
     end
   end
+
+  describe '#complete?' do
+    subject { score.complete? }
+
+    context 'when vp is given' do
+      let(:vp_numerator) { 42 }
+      let(:vp_denominator) { 1 }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context 'when vp is not given' do
+      it { is_expected.to be_falsy }
+    end
+  end
 end
