@@ -42,7 +42,7 @@ class Score < ApplicationRecord
       params.merge!(vp_numerator: nil, vp_denominator: nil)
     elsif vp.match?(/\A[-+]?\d+\z/)
       vp = vp.to_r
-      vp *= player_num / 4 if total_vp_used
+      vp = vp * player_num / 4 if total_vp_used
       params.merge!(vp_numerator: vp.numerator, vp_denominator: vp.denominator)
     else
       return [false, "vp should be blank or integer (given '#{vp}')"]

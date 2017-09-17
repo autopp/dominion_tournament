@@ -92,4 +92,62 @@ RSpec.describe Score, type: :model do
       it { is_expected.to eq('30') }
     end
   end
+
+  describe '#update_by_input' do
+    subject { score.update_by_input(input, 3, total_vp_used) }
+
+    let(:input) { { vp: vp, has_extra_turn: true } }
+
+    context 'when vp in input is black' do
+      let(:vp) { '' }
+      let(:total_vp_used) { true }
+      let(:vp_numerator) { nil }
+      let(:vp_denominator) { nil }
+
+      before do
+        params = {
+          has_extra_turn: true,
+          vp_numerator: vp_numerator, vp_denominator: vp_denominator
+        }
+        expect(score).to receive(:update).with(params).and_return(true)
+      end
+
+      it { is_expected.to eq([true, 'Update Error']) }
+    end
+
+    context 'when vp is given' do
+      let(:vp) { '30' }
+
+      before do
+        params = {
+          has_extra_turn: true,
+          vp_numerator: vp_numerator, vp_denominator: vp_denominator
+        }
+        expect(score).to receive(:update).with(params).and_return(true)
+      end
+
+      context 'and total vp is used' do
+        let(:total_vp_used) { true }
+        let(:vp_numerator) { 45 }
+        let(:vp_denominator) { 2 }
+
+        it { is_expected.to eq([true, 'Update Error']) }
+      end
+
+      context 'and total vp is not used' do
+        let(:total_vp_used) { false }
+        let(:vp_numerator) { 30 }
+        let(:vp_denominator) { 1 }
+
+        it { is_expected.to eq([true, 'Update Error']) }
+      end
+    end
+
+    context 'when vp is given but not integer' do
+      let(:vp) { 'abc' }
+      let(:total_vp_used) { true }
+
+      it { is_expected.to eq([false, "vp should be blank or integer (given 'abc')"]) }
+    end
+  end
 end
