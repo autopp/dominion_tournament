@@ -35,11 +35,6 @@ class Score < ApplicationRecord
     (vp * 4 / player_num).to_i.to_s
   end
 
-  def tp_text(player_num)
-    return '' unless tp_numerator
-    (tp * 4 / player_num).to_i.to_s
-  end
-
   def update_by_input(input, player_num, total_vp_used)
     params = { has_extra_turn: input[:has_extra_turn] }
     vp = input[:vp]
