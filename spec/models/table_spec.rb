@@ -3,17 +3,19 @@ require 'rails_helper'
 RSpec.describe Table, type: :model do
   let(:table) { Table.new(number: 1) }
 
+  let(:player1) { Player.new(name: 'player1') }
+  let(:player2) { Player.new(name: 'player2') }
+  let(:player3) { Player.new(name: 'player3') }
+  let(:player4) { Player.new(name: 'player4') }
+
+  before do
+    table.scores << score1 << score2 << score3 << score4
+    score1.table = score2.table = score3.table = score4.table = table
+  end
+
   describe '#aggregate' do
     subject { table.aggregate }
 
-    let(:player1) { Player.new(name: 'player1') }
-    let(:player2) { Player.new(name: 'player2') }
-    let(:player3) { Player.new(name: 'player3') }
-    let(:player4) { Player.new(name: 'player4') }
-
-    before do
-      table.scores << score1 << score2 << score3 << score4
-    end
 
     context 'when scores is 9, 8, 7, 6' do
       let(:score1) { player1.scores.new(vp_numerator: 9, vp_denominator: 1) }
@@ -45,6 +47,22 @@ RSpec.describe Table, type: :model do
           }
         )
       end
+    end
+  end
+
+  describe '#finish!' do
+    let(:score1) { player1.scores.new(vp_numerator: 9, vp_denominator: 1) }
+    let(:score2) { player2.scores.new(vp_numerator: 9, vp_denominator: 1) }
+    let(:score3) { player3.scores.new(vp_numerator: 8, vp_denominator: 1) }
+    let(:score4) { player4.scores.new(vp_numerator: 8, vp_denominator: 1) }
+
+    it 'updates tp and rank of each score' do
+      table.finish!
+
+      expect(score1.attributes).to include('tp_numerator' => 9, 'tp_denominator' => 2, 'rank' => 1)
+      expect(score2.attributes).to include('tp_numerator' => 9, 'tp_denominator' => 2, 'rank' => 1)
+      expect(score3.attributes).to include('tp_numerator' => 1, 'tp_denominator' => 2, 'rank' => 3)
+      expect(score4.attributes).to include('tp_numerator' => 1, 'tp_denominator' => 2, 'rank' => 3)
     end
   end
 end
