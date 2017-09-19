@@ -16,7 +16,6 @@ RSpec.describe Table, type: :model do
   describe '#aggregate' do
     subject { table.aggregate }
 
-
     context 'when scores is 9, 8, 7, 6' do
       let(:score1) { player1.scores.new(vp_numerator: 9, vp_denominator: 1) }
       let(:score2) { player2.scores.new(vp_numerator: 8, vp_denominator: 1) }
