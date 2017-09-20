@@ -1,6 +1,7 @@
 vendor/bundle
 .git
 .gitignore
+.bundle/*
 public/assets
 db/*.sqlite3
 db/*.sqlite3-journal
