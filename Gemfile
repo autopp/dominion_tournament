@@ -39,6 +39,8 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'rake', '~> 12.0'
+
 group :prodcution do
   gem 'mysql2', '~> 0.4.9'
 end

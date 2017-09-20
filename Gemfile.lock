@@ -245,6 +245,7 @@ DEPENDENCIES
   pry-stack_explorer
   puma (~> 3.0)
   rails (~> 5.0.2)
+  rake (~> 12.0)
   rspec-rails (~> 3.5.0)
   rubocop
   sass-rails (~> 5.0)
