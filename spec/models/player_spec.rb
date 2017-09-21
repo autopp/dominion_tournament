@@ -39,4 +39,10 @@ RSpec.describe Player, type: :model do
 
     it { is_expected.to eq(Rational(27, 2)) }
   end
+
+  describe '#total_vp' do
+    subject { player.total_vp }
+
+    it { is_expected.to eq(Rational(80, 1)) }
+  end
 end
