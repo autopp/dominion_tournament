@@ -17,7 +17,7 @@ class TournamentsController < ApplicationController
       return
     end
 
-    t = Tournament.create_with_players(players, params[:total_vp_used], params[:rank_histroy_used])
+    t = Tournament.create_with_players(players, params[:total_vp_used], params[:rank_history_used])
     flash[:success] = "New tournament #{t.id} is created"
     redirect_to tournament_path(id: t.id)
   rescue => e

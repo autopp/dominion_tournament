@@ -11,10 +11,10 @@ class Player < ApplicationRecord
   end
 
   def ranking_value
-    [total_tp, total_vp] + rank_histroy
+    [total_tp, total_vp] + rank_history
   end
 
-  def rank_histroy
+  def rank_history
     finished_scores.each_with_object([0, 0, 0, 0]).each do |score, history|
       history[score.rank - 1] += 1
     end

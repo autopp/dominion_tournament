@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170912004959) do
+ActiveRecord::Schema.define(version: 20170921033317) do
 
   create_table "players", force: :cascade do |t|
     t.string   "name",          null: false
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20170912004959) do
     t.datetime "updated_at",                       null: false
     t.integer  "finished_count",    default: 0,    null: false
     t.boolean  "total_vp_used",     default: true, null: false
-    t.boolean  "rank_histroy_used", default: true, null: false
+    t.boolean  "rank_history_used", default: true, null: false
   end
 
 end
