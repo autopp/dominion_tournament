@@ -45,4 +45,10 @@ RSpec.describe Player, type: :model do
 
     it { is_expected.to eq(Rational(80, 1)) }
   end
+
+  describe '#rank_histroy' do
+    subject { player.rank_histroy }
+
+    it { is_expected.to eq([2, 1, 0, 0]) }
+  end
 end
