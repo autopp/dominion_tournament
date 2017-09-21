@@ -51,4 +51,12 @@ RSpec.describe Player, type: :model do
 
     it { is_expected.to eq([2, 1, 0, 0]) }
   end
+
+  describe 'finished_scores' do
+    subject { player.finished_scores }
+
+    it 'returns array of score finished' do
+      expect(subject).to eq([score1, score2, score3])
+    end
+  end
 end
