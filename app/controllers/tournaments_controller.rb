@@ -31,6 +31,12 @@ class TournamentsController < ApplicationController
   end
 
   def update
+    unless authorized?('admin')
+      @errors = ['Not permitted operation']
+      render_show
+      return
+    end
+
     status, message = if params[:dropout]
                         Player.find(params[:dropout]).dropout
                       else
