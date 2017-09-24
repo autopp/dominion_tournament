@@ -9,8 +9,8 @@ class ApplicationController < ActionController::Base
   end
 
   def check_auth(auth, fall_back)
-    authorized = AUTH_VALUES[Rails.config.authority].to_i >= AUTH_VALUES[auth]
-    render_with_errors(fall_back, 'Not permitted operation') unless authorized
+    authorized = AUTH_VALUES[Rails.configuration.authority].to_i >= AUTH_VALUES[auth]
+    render_with_errors(fall_back, errors: ['Not permitted operation']) unless authorized
     authorized
   end
 end

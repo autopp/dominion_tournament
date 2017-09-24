@@ -109,3 +109,15 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   # Kernel.srand config.seed
 end
+
+shared_context 'authority level is "staff"', auth: :staff do
+  before do
+    allow(Rails.configuration).to receive(:authority).and_return('staff')
+  end
+end
+
+shared_context 'authority level is "guest"', auth: :guest do
+  before do
+    allow(Rails.configuration).to receive(:authority).and_return('guest')
+  end
+end

@@ -9,6 +9,8 @@ class TournamentsController < ApplicationController
   end
 
   def create
+    check_auth('admin', :new) || return
+
     players = params[:players].each_line.map(&:strip).reject(&:blank?)
 
     if players.empty?
