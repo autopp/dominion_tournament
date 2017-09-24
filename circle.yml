@@ -24,4 +24,4 @@ deployment:
       - mv cf $HOME/bin
       - cf version
       - cf login -a "$CF_API" -u "$CF_USERNAME" -p "$CF_PASSWORD" -o "$CF_ORG" -s "$CF_SPACE"
-      - cf push -f manifest_staging.yml
+      - cf push -f manifest.yml
