@@ -5,6 +5,12 @@ class RoundsController < ApplicationController
   end
 
   def create
+    unless authorized?('admin')
+      flash[:danger] = 'Not permitted operation'
+      redirect_to tournament_path(id: params[:tournament_id])
+      return
+    end
+
     @tournament = Tournament.find(params[:tournament_id])
     ActiveRecord::Base.transaction do
       @round = create_round(@tournament)
