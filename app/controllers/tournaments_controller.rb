@@ -13,12 +13,6 @@ class TournamentsController < ApplicationController
 
     players = params[:players].each_line.map(&:strip).reject(&:blank?)
 
-    if players.empty?
-      @errors = ['no player given']
-      render :new
-      return
-    end
-
     t = Tournament.create_with_players(players, params[:total_vp_used], params[:rank_history_used])
     flash[:success] = "New tournament #{t.id} is created"
     redirect_to tournament_path(id: t.id)
@@ -32,8 +26,7 @@ class TournamentsController < ApplicationController
 
   def update
     unless authorized?('admin')
-      @errors = ['Not permitted operation']
-      render_show
+      render_show(errors: ['Not permitted operation'])
       return
     end
 
@@ -54,7 +47,8 @@ class TournamentsController < ApplicationController
 
   private
 
-  def render_show
+  def render_show(errors: nil)
+    @errors ||= errors
     @ranking = @tournament.ranking
     @ongoing_round = @tournament.ongoing_round
 

@@ -2,7 +2,7 @@ class Tournament < ApplicationRecord
   has_many :players, dependent: :destroy
   has_many :rounds, dependent: :destroy
 
-  INVALID_PLAYER_COUNTS = [1, 2, 5].freeze
+  INVALID_PLAYER_COUNTS = [0, 1, 2, 5].freeze
 
   def ranking
     sorted = players.includes(:scores).group_by(&:ranking_value).sort_by { |k, _| k }
