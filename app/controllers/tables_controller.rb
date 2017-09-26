@@ -19,6 +19,8 @@ class TablesController < ApplicationController
   end
 
   def update
+    check_auth('staff', :edit) || return
+
     if @round.finished?
       render_with_errors :edit, errors: ['Already finished']
       return
@@ -30,7 +32,7 @@ class TablesController < ApplicationController
     if !err_msgs.empty?
       render_with_errors :edit, errors: err_msgs
     else
-      flash[:success] = 'Updated!'
+      flash[:success] = "Table #{@table.number} was updated!"
       redirect_to edit_tournament_round_path(tournament_id: @round.tournament_id, id: @round.number)
     end
   end
