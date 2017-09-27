@@ -60,7 +60,7 @@ class Tournament < ApplicationRecord
       raise "cannot create #{count} player(s) tournament"
     end
 
-    t = new(total_vp_used: total_vp_used, rank_history_used: rank_history_used)
+    t = new(total_vp_used: total_vp_used || false, rank_history_used: rank_history_used || false)
     ActiveRecord::Base.transaction do
       t.save!
       player_names.each do |name|
