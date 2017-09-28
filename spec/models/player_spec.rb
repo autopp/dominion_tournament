@@ -46,6 +46,42 @@ RSpec.describe Player, type: :model do
     it { is_expected.to eq(Rational(80, 1)) }
   end
 
+  describe '#ranking_value' do
+    subject { player.ranking_value(total_vp_used, rank_history_used) }
+
+    context 'when total vp used' do
+      let(:total_vp_used) { true }
+
+      context 'and when rank history used' do
+        let(:rank_history_used) { true }
+
+        it { is_expected.to eq([Rational(27, 2), Rational(80, 1), 2, 1, 0, 0]) }
+      end
+
+      context 'and when not rank history used' do
+        let(:rank_history_used) { false }
+
+        it { is_expected.to eq([Rational(27, 2), Rational(80, 1)]) }
+      end
+    end
+
+    context 'when not total vp used' do
+      let(:total_vp_used) { false }
+
+      context 'and when rank history used' do
+        let(:rank_history_used) { true }
+
+        it { is_expected.to eq([Rational(27, 2), 2, 1, 0, 0]) }
+      end
+
+      context 'and when not rank history used' do
+        let(:rank_history_used) { false }
+
+        it { is_expected.to eq([Rational(27, 2)]) }
+      end
+    end
+  end
+
   describe '#rank_history' do
     subject { player.rank_history }
 

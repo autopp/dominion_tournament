@@ -10,8 +10,11 @@ class Player < ApplicationRecord
     finished_scores.map(&:vp).reduce(0, &:+)
   end
 
-  def ranking_value
-    [total_tp, total_vp] + rank_history
+  def ranking_value(total_vp_used, rank_history_used)
+    v = [total_tp]
+    v << total_vp if total_vp_used
+    v += rank_history if rank_history_used
+    v
   end
 
   def rank_history

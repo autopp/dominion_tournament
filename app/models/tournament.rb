@@ -5,7 +5,9 @@ class Tournament < ApplicationRecord
   INVALID_PLAYER_COUNTS = [0, 1, 2, 5].freeze
 
   def ranking
-    sorted = players.includes(:scores).group_by(&:ranking_value).sort_by { |k, _| k }
+    sorted = players.includes(:scores).group_by do |p|
+      p.ranking_value(total_vp_used, rank_history_used)
+    end.sort_by { |k, _| k }
 
     rank = 1
     sorted.reverse.each_with_object([]) do |(_, players), ranking|
