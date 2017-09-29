@@ -10,6 +10,7 @@
     <td>Has extra turn?</td>
   </thead>
   <tbody>
+    <% total_vp_used = @round.tournament.total_vp_used %>
     <% @tables.each do |table| %>
       <% table_id = table.id %>
       <% player_num = table.scores.size %>
@@ -20,7 +21,7 @@
             <td rowspan="<%= player_num %>"><%= link_to table.number, edit_tournament_round_table_path(tournament_id: @round.tournament_id, round_id: @round.number, id: table.number) %></td>
           <% end %>
           <td><%= score.player.name %></td>
-          <td><%= score.vp_text(player_num) %></td>
+          <td><%= score.vp_text(player_num, total_vp_used) %></td>
           <td><%= check_box_tag('', true , score.has_extra_turn, disabled: true) %></td>
         </tr>
       <% end %>

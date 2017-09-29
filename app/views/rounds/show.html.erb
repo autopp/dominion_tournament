@@ -12,6 +12,7 @@
     <td>TP</td>
   </thead>
   <tbody>
+    <% total_vp_used = @round.tournament.total_vp_used %>
     <% @tables.each do |table| %>
       <% player_num = table.scores.size %>
       <% table.scores.sort_by(&:rank).each_with_index do |score, i| %>
@@ -21,7 +22,7 @@
           <% end %>
           <td><%= score.rank %></td>
           <td><%= score.player.name %></td>
-          <td><%= score.vp_text(player_num) %></td>
+          <td><%= score.vp_text(player_num, total_vp_used) %></td>
           <td><%= check_box_tag('', true , score.has_extra_turn, disabled: true) %></td>
           <td><%= format_point(score.tp) %></td>
         </tr>
