@@ -79,17 +79,28 @@ RSpec.describe Score, type: :model do
   end
 
   describe '#vp_text' do
-    subject { score.vp_text(3) }
+    subject { score.vp_text(3, total_vp_used) }
 
     context 'when numerator is not given' do
+      let(:total_vp_used) { true }
       it { is_expected.to eq('') }
     end
 
     context 'when numerator and denominator are given' do
-      let(:vp_numerator) { 90 }
-      let(:vp_denominator) { 4 }
+      let(:vp_numerator) { 30 }
+      let(:vp_denominator) { 1 }
 
-      it { is_expected.to eq('30') }
+      context 'and total vp used' do
+        let(:total_vp_used) { true }
+
+        it { is_expected.to eq('40') }
+      end
+
+      context 'and not total vp used' do
+        let(:total_vp_used) { false }
+
+        it { is_expected.to eq('30') }
+      end
     end
   end
 

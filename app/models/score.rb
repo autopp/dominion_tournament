@@ -30,9 +30,13 @@ class Score < ApplicationRecord
     vp == other.vp && has_extra_turn == other.has_extra_turn
   end
 
-  def vp_text(player_num)
+  def vp_text(player_num, total_vp_used)
     return '' unless vp_numerator
-    (vp * 4 / player_num).to_i.to_s
+    if total_vp_used
+      (vp * 4 / player_num).to_i.to_s
+    else
+      vp.to_i.to_s
+    end
   end
 
   def update_by_input(input, player_num, total_vp_used)
