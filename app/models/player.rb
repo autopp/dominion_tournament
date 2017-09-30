@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 class Player < ApplicationRecord
   belongs_to :tournament
   has_many :scores, dependent: :destroy
@@ -15,6 +17,10 @@ class Player < ApplicationRecord
     v << total_vp if total_vp_used
     v += rank_history if rank_history_used
     v
+  end
+
+  def digest
+    Digest::MD5.hexdigest("#{total_vp}#{name}")
   end
 
   def rank_history

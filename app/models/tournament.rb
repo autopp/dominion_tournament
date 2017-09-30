@@ -11,7 +11,10 @@ class Tournament < ApplicationRecord
 
     rank = 1
     grouped_scores.sort_by { |k, _| k }.reverse.each_with_object([]) do |(_, players), ranking|
-      players.sort_by(&:id).each { |player| ranking << { rank: rank, player: player } }
+      sorted = players.sort_by do |player|
+        total_vp_used ? player.id : player.digest
+      end
+      sorted.each { |player| ranking << { rank: rank, player: player } }
       rank += players.size
     end
   end

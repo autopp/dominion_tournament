@@ -46,6 +46,12 @@ RSpec.describe Player, type: :model do
     it { is_expected.to eq(Rational(80, 1)) }
   end
 
+  describe '#digest' do
+    subject { player.digest }
+
+    it { is_expected.to be_a(String) }
+  end
+
   describe '#ranking_value' do
     subject { player.ranking_value(total_vp_used, rank_history_used) }
 
