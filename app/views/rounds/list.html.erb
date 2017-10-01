@@ -1,7 +1,7 @@
 <% provide(:title, "Tournament #{@round.tournament_id}: Round #{@round.number}") %>
 <% provide(:back_path, tournament_round_path(tournament_id: @round.tournament_id, id: @round.number)) %>
 
-<h2>Mathings</h2>
+<h2>Matchings</h2>
 <table class="table table-bordered">
   <tbody>
     <% @tables.each.with_index(1) do |table, i| %>
