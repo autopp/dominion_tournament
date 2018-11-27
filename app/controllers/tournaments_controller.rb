@@ -1,5 +1,7 @@
 class TournamentsController < ApplicationController
-  before_action only: [:show, :update] { @tournament = Tournament.find(params[:id]) }
+  before_action only: [:show, :update] do
+    @tournament = Tournament.find(params[:id])
+  end
 
   def index
     @tournaments = Tournament.all
