@@ -32,6 +32,7 @@ class Score < ApplicationRecord
 
   def vp_text(player_num, total_vp_used)
     return '' unless vp_numerator
+
     if total_vp_used
       (vp * 4 / player_num).to_i.to_s
     else

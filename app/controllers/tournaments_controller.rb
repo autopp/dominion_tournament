@@ -1,5 +1,5 @@
 class TournamentsController < ApplicationController
-  before_action only: [:show, :update] do
+  before_action only: %i[show update] do
     @tournament = Tournament.find(params[:id])
   end
 
@@ -18,7 +18,7 @@ class TournamentsController < ApplicationController
     t = Tournament.create_with_players(players, params[:total_vp_used], params[:rank_history_used])
     flash[:success] = "New tournament #{t.id} is created"
     redirect_to tournament_path(id: t.id)
-  rescue => e
+  rescue StandardError => e
     render_with_errors :new, errors: [e.message]
   end
 

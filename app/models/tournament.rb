@@ -55,7 +55,7 @@ class Tournament < ApplicationRecord
     end
 
     [true, msg]
-  rescue => e
+  rescue StandardError => e
     [false, e.message]
   end
 

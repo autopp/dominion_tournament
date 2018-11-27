@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Tournament, type: :model do
   describe '.create_with_players' do
     context 'with ["foo", "bar", "baz"], true, true' do
-      let(:names) { %w(foo bar baz) }
+      let(:names) { %w[foo bar baz] }
       subject { described_class.create_with_players(names, true, true) }
 
       it { is_expected.to be_a(Tournament) }
@@ -26,9 +26,9 @@ RSpec.describe Tournament, type: :model do
 
     it 'returns matchings by ranking' do
       matchings = [
-        %w(player1 player4 player9 player10),
-        %w(player5 player7 player11 player8),
-        %w(player3 player6 player2)
+        %w[player1 player4 player9 player10],
+        %w[player5 player7 player11 player8],
+        %w[player3 player6 player2]
       ]
       expect(subject).to eq(matchings)
     end

@@ -7,11 +7,11 @@ RSpec.describe 'tournament page', type: :feature do
     it 'show ranking table' do
       player_names = ranking_rows.map { |row| row.find('td.ranking-player-name').text }
       expect(player_names).to eq(
-        %w(
+        %w[
           player1 player4 player9 player10
           player5 player7 player11 player8
           player3 player6 player2
-        )
+        ]
       )
     end
 
