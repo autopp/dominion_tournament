@@ -26,6 +26,9 @@ Style/Documentation:
 Style/MutableConstant:
   AutoCorrect: false
 
+Naming/HeredocDelimiterNaming:
+  Enabled: false
+
 Metrics/ParameterLists:
   Exclude:
     - spec/**/*
