@@ -42,6 +42,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'rake', '~> 12.0'
 gem 'listen', '~> 3.0.5'
 
+gem "bootsnap", ">= 1.1.0", require: false
+
 group :prodcution do
   gem 'mysql2', '~> 0.4.9'
 end
