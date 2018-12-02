@@ -19,6 +19,24 @@ RSpec.describe Tournament, type: :model do
     end
   end
 
+  describe '#ongoing_round' do
+    subject { tournament.ongoing_round }
+
+    context 'when all rounds are finished' do
+      let(:tournament) { create(:tournament_with_finished_two_rounds) }
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'when tournament has ongoing round' do
+      let(:tournament) { create(:tournament_with_ongoing_third_rounds) }
+
+      it 'returns the ongoing round' do
+        is_expected.to have_attributes(tournament_id: tournament.id, number: 3)
+      end
+    end
+  end
+
   describe '#matchings' do
     let(:tournament) { create(:tournament_with_finished_two_rounds) }
 
