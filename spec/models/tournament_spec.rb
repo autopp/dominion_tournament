@@ -19,6 +19,31 @@ RSpec.describe Tournament, type: :model do
     end
   end
 
+  describe '#ranking' do
+    subject { tournament.ranking }
+
+    context 'when all rounds are finished' do
+      let(:tournament) { create(:tournament_with_finished_two_rounds) }
+
+      it 'aggregates all scores' do
+        ranking = [
+          { rank: 1, player: an_object_having_attributes(name: 'player1') },
+          { rank: 2, player: an_object_having_attributes(name: 'player4') },
+          { rank: 3, player: an_object_having_attributes(name: 'player9') },
+          { rank: 3, player: an_object_having_attributes(name: 'player10') },
+          { rank: 5, player: an_object_having_attributes(name: 'player5') },
+          { rank: 6, player: an_object_having_attributes(name: 'player7') },
+          { rank: 7, player: an_object_having_attributes(name: 'player11') },
+          { rank: 8, player: an_object_having_attributes(name: 'player8') },
+          { rank: 9, player: an_object_having_attributes(name: 'player3') },
+          { rank: 9, player: an_object_having_attributes(name: 'player6') },
+          { rank: 11, player: an_object_having_attributes(name: 'player2') }
+        ]
+        expect(subject).to match(ranking)
+      end
+    end
+  end
+
   describe '#ongoing_round' do
     subject { tournament.ongoing_round }
 
