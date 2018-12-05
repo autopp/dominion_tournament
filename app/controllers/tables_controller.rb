@@ -21,7 +21,7 @@ class TablesController < ApplicationController
   end
 
   def update
-    check_auth('staff', :edit) || return
+    check_auth('staff', fall_back: :edit) || return
 
     if @round.finished?
       render_with_errors :edit, errors: ['Already finished']

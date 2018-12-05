@@ -36,7 +36,7 @@ class RoundsController < ApplicationController
   end
 
   def update
-    check_auth('admin', :edit) || return
+    check_auth('admin', fall_back: :edit) || return
 
     if @round.finished?
       render_with_errors :edit, errors: ['Already finished']

@@ -11,7 +11,7 @@ class TournamentsController < ApplicationController
   end
 
   def create
-    check_auth('admin', :new) || return
+    check_auth('admin', fall_back: :new) || return
 
     players = params[:players].each_line.map(&:strip).reject(&:blank?)
 
