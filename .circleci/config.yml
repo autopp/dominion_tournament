@@ -47,9 +47,6 @@ jobs:
           command: |
             mkdir /tmp/test-results
             bundle exec rspec --exclude-pattern 'spec/*/features/*_spec.rb' \
-                            --format progress \
-                            --format RspecJunitFormatter \
-                            --out /tmp/test-results/rspec.xml \
                             --format documentation
 
       # run feature tests
@@ -57,9 +54,6 @@ jobs:
           name: run feature tests
           command: |
             bundle exec rspec --pattern 'spec/*/features/*_spec.rb' \
-                            --format progress \
-                            --format RspecJunitFormatter \
-                            --out /tmp/test-results/feature-rspec.xml \
                             --format documentation
 
       # run rubocop
