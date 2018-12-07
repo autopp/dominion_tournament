@@ -10,54 +10,54 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170921033317) do
+ActiveRecord::Schema.define(version: 2017_09_21_033317) do
 
   create_table "players", force: :cascade do |t|
-    t.string   "name",          null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.integer  "tournament_id"
-    t.integer  "droped_round"
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "tournament_id"
+    t.integer "droped_round"
     t.index ["tournament_id"], name: "index_players_on_tournament_id"
   end
 
   create_table "rounds", force: :cascade do |t|
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "tournament_id"
-    t.integer  "number",        default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "tournament_id"
+    t.integer "number", default: 1, null: false
     t.index ["tournament_id"], name: "index_rounds_on_tournament_id"
   end
 
   create_table "scores", force: :cascade do |t|
-    t.integer  "vp_numerator"
-    t.integer  "vp_denominator"
-    t.boolean  "has_extra_turn", default: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "player_id"
-    t.integer  "table_id"
-    t.integer  "tp_numerator"
-    t.integer  "tp_denominator"
-    t.integer  "rank"
+    t.integer "vp_numerator"
+    t.integer "vp_denominator"
+    t.boolean "has_extra_turn", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "player_id"
+    t.integer "table_id"
+    t.integer "tp_numerator"
+    t.integer "tp_denominator"
+    t.integer "rank"
     t.index ["player_id"], name: "index_scores_on_player_id"
     t.index ["table_id"], name: "index_scores_on_table_id"
   end
 
   create_table "tables", force: :cascade do |t|
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "round_id"
-    t.integer  "number",     default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "round_id"
+    t.integer "number", default: 1, null: false
     t.index ["round_id"], name: "index_tables_on_round_id"
   end
 
   create_table "tournaments", force: :cascade do |t|
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.integer  "finished_count",    default: 0,    null: false
-    t.boolean  "total_vp_used",     default: true, null: false
-    t.boolean  "rank_history_used", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "finished_count", default: 0, null: false
+    t.boolean "total_vp_used", default: true, null: false
+    t.boolean "rank_history_used", default: true, null: false
   end
 
 end
