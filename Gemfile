@@ -63,6 +63,8 @@ group :development, :test do
   gem 'capybara'
 
   gem 'rubocop'
+
+  gem 'simplecov'
 end
 
 group :development do
