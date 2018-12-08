@@ -47,14 +47,14 @@ jobs:
           command: |
             mkdir /tmp/test-results
             RAILS_ENV=test bundle exec rspec --exclude-pattern 'spec/features/*_spec.rb' \
-                            --format documentation
+                           --format documentation
 
       # run feature tests
       - run:
           name: run feature tests
           command: |
             RAILS_ENV=test bundle exec rspec --pattern 'spec/features/*_spec.rb' \
-                            --format documentation
+                           --format documentation
 
       # run rubocop
       - run: bundle exec rubocop -D
@@ -63,5 +63,5 @@ jobs:
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
-          path: /tmp/test-results
+          path: coverage
           destination: test-results
