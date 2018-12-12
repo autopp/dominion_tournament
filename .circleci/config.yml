@@ -5,6 +5,8 @@
 version: 2
 jobs:
   build:
+    environment:
+      RAILS_ENV: test
     docker:
       # specify the version you desire here
       - image: circleci/ruby:2.5.3-node-browsers
@@ -39,14 +41,14 @@ jobs:
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
       # Database setup
-      - run: RAILS_ENV=test bundle exec rake db:migrate
+      - run: bundle exec rake db:migrate
 
       # run unit tests
       - run:
           name: run unit tests
           command: |
             mkdir /tmp/test-results
-            RAILS_ENV=test bundle exec rspec --exclude-pattern 'spec/features/*_spec.rb' \
+            bundle exec rspec --exclude-pattern 'spec/features/*_spec.rb' \
                            --format RspecJunitFormatter --out /tmp/test-results/rspec.xml --format documentation
 
       # run feature tests
@@ -54,7 +56,7 @@ jobs:
           name: run feature tests
           command: |
             mkdir /tmp/feature-test-results
-            RAILS_ENV=test COVERAGE_DIR=coverage_features bundle exec rspec --pattern 'spec/features/*_spec.rb' \
+            COVERAGE_DIR=coverage_features bundle exec rspec --pattern 'spec/features/*_spec.rb' \
                            --format RspecJunitFormatter --out /tmp/feature-test-results/rspec.xml --format documentation
 
       # run rubocop
