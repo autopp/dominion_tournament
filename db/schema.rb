@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_14_005100) do
+ActiveRecord::Schema.define(version: 2018_12_16_140115) do
 
   create_table "players", force: :cascade do |t|
     t.string "name", null: false
@@ -41,8 +41,11 @@ ActiveRecord::Schema.define(version: 2018_12_14_005100) do
     t.integer "tp_denominator"
     t.integer "rank"
     t.integer "table_number", default: 0, null: false
+    t.integer "tournament_id"
+    t.integer "round_number", default: 0, null: false
     t.index ["player_id"], name: "index_scores_on_player_id"
     t.index ["table_id"], name: "index_scores_on_table_id"
+    t.index ["tournament_id"], name: "index_scores_on_tournament_id"
   end
 
   create_table "tables", force: :cascade do |t|
