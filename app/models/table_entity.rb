@@ -1,7 +1,7 @@
 class TableEntity
   include ActiveModel::Model
 
-  attr_accessor :number, :scores
+  attr_accessor :tournament, :round_number, :number, :scores
 
   define_model_callbacks :initialize
 
@@ -12,7 +12,7 @@ class TableEntity
   end
 
   after_initialize do
-    @scores = Score.where(table_number: number)
+    @scores = Score.where(tournament: tournament, round_number: round_number, table_number: number)
   end
 
   def aggregate
