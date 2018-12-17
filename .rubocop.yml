@@ -12,7 +12,7 @@ Rails:
   Enabled: true
 
 Metrics/LineLength:
-  Max: 100
+  Max: 120
 
 Style/AsciiComments:
   Enabled: false
