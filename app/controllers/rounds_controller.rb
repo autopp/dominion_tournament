@@ -53,7 +53,10 @@ class RoundsController < ApplicationController
     tournament.matchings.each.with_index(1) do |players, i|
       table = round.tables.create!(number: i)
       players.each do |player|
-        table.scores.create!(player: player, table_number: i)
+        table.scores.create!(
+          tournament: tournament, player: player,
+          round_number: round.number, table_number: i
+        )
       end
     end
 

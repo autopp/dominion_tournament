@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :score do
+    tournament
     table
     player
 
