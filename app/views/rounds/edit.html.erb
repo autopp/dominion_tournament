@@ -12,7 +12,6 @@
   <tbody>
     <% total_vp_used = @round.tournament.total_vp_used %>
     <% @tables.each do |table| %>
-      <% table_id = table.id %>
       <% player_num = table.scores.size %>
       <% table.scores.each_with_index do |score, i| %>
         <% score_id = score.id %>
