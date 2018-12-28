@@ -16,8 +16,8 @@
         <% score_id = score.id %>
         <tr>
           <td><%= score.player.name %></td>
-          <td><%= text_field_tag("scores[#{score_id}][vp]", score.vp_text(player_num, total_vp_used), size: 3) %></td>
-          <td><%= check_box_tag("scores[#{score_id}][has_extra_turn]", true , score.has_extra_turn) %></td>
+          <td><%= text_field_tag("scores[#{score_id}][vp]", score.vp_text(player_num, total_vp_used), size: 3, id: "score_#{i}_vp") %></td>
+          <td><%= check_box_tag("scores[#{score_id}][has_extra_turn]", true, score.has_extra_turn, id: "score_#{i}_has_extra_turn") %></td>
         </tr>
       <% end %>
     </tbody>
