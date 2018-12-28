@@ -1,7 +1,8 @@
 class TablesController < ApplicationController
   before_action only: %i[show edit list update] do
-    @round = Round.find_by(tournament_id: params[:tournament_id], number: params[:round_id])
-    @table = Table.find_by(round_id: @round.id, number: params[:id])
+    round_number = params[:round_id]
+    @round = Round.find_by(tournament_id: params[:tournament_id], number: round_number)
+    @table = TableEntity.new(tournament: @round.tournament, round_number: round_number, number: params[:id])
   end
 
   def show
