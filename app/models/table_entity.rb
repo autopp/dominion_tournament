@@ -1,6 +1,8 @@
 class TableEntity
   include ActiveModel::Model
 
+  DISTRIBUTION_OF_VPS = [6, 3, 1, 0].freeze
+
   attr_accessor :tournament, :round_number, :number, :scores
 
   define_model_callbacks :initialize
