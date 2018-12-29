@@ -12,7 +12,7 @@
     <%= render 'layouts/header' %>
     <div class="container">
       <% flash.each do |message_type, message| %>
-        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+        <%= content_tag(:div, message, class: "alert alert-#{message_type}", id: "flash-message-#{message_type}") %>
       <% end %>
       <%= render 'shared/error_messages', object: @errors %>
       <%= link_to('Back', yield(:back_path)) %>
