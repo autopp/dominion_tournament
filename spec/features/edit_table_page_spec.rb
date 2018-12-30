@@ -50,10 +50,6 @@ RSpec.describe 'round editing page', type: :feature do
       expect(page).to have_css('div', id: 'flash-message-success')
       expect(find("#score_#{table_number}_1_vp").text).to eq('20')
       expect(find("#score_#{table_number}_1_has_extra_turn").checked?).to eq(true)
-
-      modified_score = Score.where(tournament: @tournament, round_number: round_number, table_number: table_number)[1]
-      expect(modified_score.vp_numerator).to eq(20)
-      expect(modified_score.has_extra_turn).to eq(true)
     end
   end
 end
