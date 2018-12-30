@@ -11,7 +11,7 @@
   </thead>
   <tbody>
     <% total_vp_used = @round.tournament.total_vp_used %>
-    <% @tables.each do |table| %>
+    <% @tables.each.with_index(1) do |table, table_number| %>
       <% player_num = table.scores.size %>
       <% table.scores.each_with_index do |score, i| %>
         <% score_id = score.id %>
@@ -20,8 +20,8 @@
             <td rowspan="<%= player_num %>"><%= link_to table.number, edit_tournament_round_table_path(tournament_id: @round.tournament_id, round_id: @round.number, id: table.number) %></td>
           <% end %>
           <td><%= score.player.name %></td>
-          <td><%= score.vp_text(player_num, total_vp_used) %></td>
-          <td><%= check_box_tag('', true , score.has_extra_turn, disabled: true) %></td>
+          <td id="<%= "score_#{table_number}_#{i}_vp" %>"><%= score.vp_text(player_num, total_vp_used) %></td>
+          <td><%= check_box_tag('', true , score.has_extra_turn, disabled: true, id: "score_#{table_number}_#{i}_has_extra_turn") %></td>
         </tr>
       <% end %>
     <% end %>
