@@ -45,7 +45,9 @@ RSpec.describe 'round editing page', type: :feature do
       find('#score_1_has_extra_turn').set(true)
       click_on 'Save'
 
+      expect(current_path).to eq(edit_tournament_round_path(tournament_id: @tournament.id, id: round_number))
       expect(page).not_to have_css('div', id: 'error_explanation')
+      expect(page).to have_css('div', id: 'flash-message-success')
 
       modified_score = Score.where(tournament: @tournament, round_number: round_number, table_number: table_number)[1]
       expect(modified_score.vp_numerator).to eq(20)
