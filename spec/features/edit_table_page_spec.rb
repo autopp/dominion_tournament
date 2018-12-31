@@ -12,7 +12,10 @@ RSpec.describe 'round editing page', type: :feature do
 
     it 'redirect to show page' do
       visit page_path
-      expect(current_path).to eq(tournament_round_table_path(tournament_id: 1, round_id: 2, id: 1))
+      redirected_oath = tournament_round_table_path(
+        tournament_id: @tournament.id, round_id: round_number, id: table_number
+      )
+      expect(current_path).to eq(redirected_oath)
     end
   end
 
@@ -27,7 +30,7 @@ RSpec.describe 'round editing page', type: :feature do
 
       click_on 'Save'
 
-      expect(current_path).to eq(tournament_round_table_path(tournament_id: @tournament.id, round_id: 3, id: 1))
+      expect(current_path).to eq(page_path)
       expect(page).to have_css('div', id: 'error_explanation')
     end
   end
