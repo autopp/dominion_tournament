@@ -30,7 +30,10 @@ RSpec.describe 'round editing page', type: :feature do
 
       click_on 'Save'
 
-      expect(current_path).to eq(page_path)
+      expected_path = tournament_round_table_path(
+        tournament_id: @tournament.id, round_id: round_number, id: table_number
+      )
+      expect(current_path).to eq(expected_path)
       expect(page).to have_css('div', id: 'error_explanation')
     end
   end
