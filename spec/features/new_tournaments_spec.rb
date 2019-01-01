@@ -36,7 +36,7 @@ RSpec.feature 'create tournament', type: :feature do
 
     expect(Tournament.count).to eq(1)
     expect(Player.count).to eq(2)
-    expect(page).to have_css('div', id: 'error_explanation')
+    expect(page).to have_error_explanation
   end
 
   context 'when authority mode is not "admin"' do
@@ -58,7 +58,7 @@ RSpec.feature 'create tournament', type: :feature do
       expect(current_path).to eq(tournaments_path)
       expect(Tournament.count).to eq(1)
       expect(Player.count).to eq(2)
-      expect(page).to have_css('div', id: 'error_explanation')
+      expect(page).to have_error_explanation
     end
   end
 end

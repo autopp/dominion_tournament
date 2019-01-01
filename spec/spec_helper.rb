@@ -114,6 +114,14 @@ RSpec.configure do |config|
   # test failures related to randomization by passing the same `--seed` value
   # as the one that triggered the failure.
   # Kernel.srand config.seed
+
+  helper = Module.new do
+    def have_error_explanation
+      have_css('div', id: 'error_explanation')
+    end
+  end
+
+  config.include helper
 end
 
 shared_context 'authority level is "staff"', auth: :staff do

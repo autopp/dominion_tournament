@@ -28,7 +28,7 @@ RSpec.describe 'round editing page', type: :feature do
 
       expect(current_path).to eq(tournament_round_path(tournament_id: @tournament.id, id: round_number))
       expect(@tournament.finished_count).to eq(2)
-      expect(page).to have_css('div', id: 'error_explanation')
+      expect(page).to have_error_explanation
     end
   end
 end
