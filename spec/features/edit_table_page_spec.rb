@@ -53,7 +53,7 @@ RSpec.describe 'round editing page', type: :feature do
 
       expect(current_path).to eq(edit_tournament_round_path(tournament_id: @tournament.id, id: round_number))
       expect(page).not_to have_error_explanation
-      expect(page).to have_css('div', id: 'flash-message-success')
+      expect(page).to have_flash_message('success')
       expect(find("#score_#{table_number}_1_vp").text).to eq('20')
       expect(find("#score_#{table_number}_1_has_extra_turn").checked?).to eq(true)
     end

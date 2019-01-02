@@ -119,6 +119,10 @@ RSpec.configure do |config|
     def have_error_explanation
       have_css('div', id: 'error_explanation')
     end
+
+    def have_flash_message(type)
+      have_css('div', id: "flash-message-#{type}")
+    end
   end
 
   config.include helper
