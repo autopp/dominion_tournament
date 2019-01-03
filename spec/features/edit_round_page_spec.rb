@@ -16,9 +16,7 @@ RSpec.describe 'round editing page', type: :feature do
     end
   end
 
-  context 'when authority level is not "admin"' do
-    include_context 'authority level is "staff"'
-
+  context 'when authority level is not "admin"', auth: :staff do
     let(:round_number) { 3 }
 
     scenario 'click finish' do

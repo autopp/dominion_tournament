@@ -39,9 +39,7 @@ RSpec.feature 'create tournament', type: :feature do
     expect(page).to have_error_explanation
   end
 
-  context 'when authority mode is not "admin"' do
-    include_context 'authority level is "staff"'
-
+  context 'when authority mode is not "admin"', auth: :staff do
     scenario 'input valid players text and click create' do
       visit new_tournament_path
 

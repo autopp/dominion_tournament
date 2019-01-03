@@ -19,9 +19,7 @@ RSpec.describe 'round editing page', type: :feature do
     end
   end
 
-  context 'when authority level is not "staff"' do
-    include_context 'authority level is "guest"'
-
+  context 'when authority level is not "staff"', auth: :guest do
     let(:round_number) { 3 }
     let(:table_number) { 1 }
 
@@ -38,9 +36,7 @@ RSpec.describe 'round editing page', type: :feature do
     end
   end
 
-  context 'when authority level is "staff"' do
-    include_context 'authority level is "staff"'
-
+  context 'when authority level is "staff"', auth: :staff do
     let(:round_number) { 3 }
     let(:table_number) { 2 }
 
