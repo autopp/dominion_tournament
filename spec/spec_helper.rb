@@ -128,14 +128,19 @@ RSpec.configure do |config|
   config.include helper
 end
 
-shared_context 'authority level is "staff"', auth: :staff do
+shared_context 'authority level is "staff"' do
   before do
     allow(Rails.configuration).to receive(:authority).and_return('staff')
   end
 end
 
-shared_context 'authority level is "guest"', auth: :guest do
+shared_context 'authority level is "guest"' do
   before do
     allow(Rails.configuration).to receive(:authority).and_return('guest')
   end
+end
+
+RSpec.configure do |config|
+  config.include_context 'authority level is "staff"', auth: :staff
+  config.include_context 'authority level is "guest"', auth: :guest
 end
