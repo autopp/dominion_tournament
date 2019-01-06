@@ -24,8 +24,8 @@ RSpec.describe 'tournament page', type: :feature do
 
   context 'when ongoing rounds dose not exist' do
     before do
-      create(:tournament_with_finished_two_rounds)
-      visit tournament_path(id: 1)
+      @tournament = create(:tournament_with_finished_two_rounds)
+      visit tournament_path(id: @tournament.id)
     end
 
     it_behaves_like 'current score ranking viewer'
@@ -34,11 +34,11 @@ RSpec.describe 'tournament page', type: :feature do
       before { click_on 'Start new round' }
 
       it 'redirect to /tournaments/1/rounds/3/edit' do
-        expect(current_path).to eq(edit_tournament_round_path(tournament_id: 1, id: 3))
+        expect(current_path).to eq(edit_tournament_round_path(tournament_id: @tournament.id, id: 3))
       end
 
       it 'create new round' do
-        expect(Round.last.attributes).to include('tournament_id' => 1, 'number' => 3)
+        expect(Round.last.attributes).to include('tournament_id' => @tournament.id, 'number' => 3)
       end
     end
 
@@ -49,20 +49,20 @@ RSpec.describe 'tournament page', type: :feature do
         expect(page).to have_css('div.alert-success', text: 'Round 2 is backed to ongoing')
         tournament = Tournament.find(1)
         expect(tournament.finished_count).to eq(1)
-        expect(tournament.ongoing_round).to eq(Round.find_by(tournament_id: 1, number: 2))
+        expect(tournament.ongoing_round).to eq(Round.find_by(tournament_id: @tournament.id, number: 2))
       end
     end
   end
 
   context 'when ongoing round exists' do
     before do
-      create(:tournament_with_ongoing_third_rounds)
-      visit tournament_path(id: 1)
+      @tournament = create(:tournament_with_ongoing_third_rounds)
+      visit tournament_path(id: @tournament.id)
     end
 
     it_behaves_like 'current score ranking viewer'
 
-    let(:edit_round_path) { edit_tournament_round_path(tournament_id: 1, id: 3) }
+    let(:edit_round_path) { edit_tournament_round_path(tournament_id: @tournament.id, id: 3) }
     subject { page }
 
     it { is_expected.to have_link('Current round', href: edit_round_path) }
@@ -72,7 +72,7 @@ RSpec.describe 'tournament page', type: :feature do
         click_on 'Rollback'
 
         expect(page).to have_css('div.alert-success', text: 'Round 3 is deleted')
-        expect(Round.find_by(tournament_id: 1, number: 3)).to be_nil
+        expect(Round.find_by(tournament_id: @tournament.id, number: 3)).to be_nil
       end
     end
   end
