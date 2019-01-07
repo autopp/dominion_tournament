@@ -10,7 +10,7 @@ RSpec.describe 'round editing page', type: :feature do
     let(:round_number) { 2 }
     let(:table_number) { 1 }
 
-    it 'redirect to show page' do
+    scenario 'redirect to show page' do
       visit page_path
       redirected_oath = tournament_round_table_path(
         tournament_id: @tournament.id, round_id: round_number, id: table_number

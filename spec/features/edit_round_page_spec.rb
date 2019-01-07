@@ -10,7 +10,7 @@ RSpec.describe 'round editing page', type: :feature do
   context 'when round is already finished' do
     let(:round_number) { 2 }
 
-    it 'redirect to show page' do
+    scenario 'redirect to show page' do
       visit page_path
       expect(current_path).to eq(tournament_round_path(tournament_id: @tournament.id, id: round_number))
     end

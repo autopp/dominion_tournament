@@ -4,7 +4,7 @@ RSpec.describe 'tournament page', type: :feature do
   shared_examples 'current score ranking viewer' do
     let(:ranking_rows) { page.all('tr.ranking-row') }
 
-    it 'show ranking table' do
+    scenario 'show ranking table' do
       player_names = ranking_rows.map { |row| row.find('td.ranking-player-name').text }
       expect(player_names).to eq(
         %w[
@@ -15,7 +15,7 @@ RSpec.describe 'tournament page', type: :feature do
       )
     end
 
-    it 'show each player result' do
+    scenario 'show each player result' do
       colmuns = ranking_rows.first.all('td')
       expected = ['1', 'player1', '', '6', '30', '6', '24', '12', '54']
       expect(colmuns.map(&:text)).to eq(expected)
@@ -33,17 +33,17 @@ RSpec.describe 'tournament page', type: :feature do
     context 'when click "Start new round"' do
       before { click_on 'Start new round' }
 
-      it 'redirect to /tournaments/1/rounds/3/edit' do
+      scenario 'redirect to /tournaments/1/rounds/3/edit' do
         expect(current_path).to eq(edit_tournament_round_path(tournament_id: @tournament.id, id: 3))
       end
 
-      it 'create new round' do
+      scenario 'create new round' do
         expect(Round.last.attributes).to include('tournament_id' => @tournament.id, 'number' => 3)
       end
     end
 
     context 'and when click rollback' do
-      it 'cancel the round 2' do
+      scenario 'cancel the round 2' do
         click_on 'Rollback'
 
         expect(page).to have_css('div.alert-success', text: 'Round 2 is backed to ongoing')
@@ -65,10 +65,10 @@ RSpec.describe 'tournament page', type: :feature do
     let(:edit_round_path) { edit_tournament_round_path(tournament_id: @tournament.id, id: 3) }
     subject { page }
 
-    it { is_expected.to have_link('Current round', href: edit_round_path) }
+    scenario { is_expected.to have_link('Current round', href: edit_round_path) }
 
     context 'and when click rollback' do
-      it 'delete the round 3' do
+      scenario 'delete the round 3' do
         click_on 'Rollback'
 
         expect(page).to have_css('div.alert-success', text: 'Round 3 is deleted')
