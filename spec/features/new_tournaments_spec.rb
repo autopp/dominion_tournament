@@ -19,8 +19,7 @@ RSpec.feature 'create tournament', type: :feature do
     click_on 'Create'
 
     expect(current_path).to eq(tournament_path(id: 2))
-    expect(Tournament.count).to eq(2)
-    expect(Player.count).to eq(5)
+    expect(all('.ranking-player-name').map(&:text)).to eq(%w[foo bar baz])
   end
 
   scenario 'input invalid players text and click create' do
