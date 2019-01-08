@@ -33,8 +33,6 @@ RSpec.feature 'create tournament', type: :feature do
     fill_in 'players', with: input
     click_on 'Create'
 
-    expect(Tournament.count).to eq(1)
-    expect(Player.count).to eq(2)
     expect(page).to have_error_explanation
   end
 
@@ -53,8 +51,6 @@ RSpec.feature 'create tournament', type: :feature do
       click_on 'Create'
 
       expect(current_path).to eq(tournaments_path)
-      expect(Tournament.count).to eq(1)
-      expect(Player.count).to eq(2)
       expect(page).to have_error_explanation
     end
   end
