@@ -36,20 +36,19 @@ RSpec.describe 'tournament page', type: :feature do
       scenario 'redirect to /tournaments/1/rounds/3/edit' do
         expect(current_path).to eq(edit_tournament_round_path(tournament_id: @tournament.id, id: 3))
       end
-
-      scenario 'create new round' do
-        expect(Round.last.attributes).to include('tournament_id' => @tournament.id, 'number' => 3)
-      end
     end
 
     context 'and when click rollback' do
       scenario 'cancel the round 2' do
         click_on 'Rollback'
 
-        expect(page).to have_css('div.alert-success', text: 'Round 2 is backed to ongoing')
-        tournament = Tournament.find(1)
-        expect(tournament.finished_count).to eq(1)
-        expect(tournament.ongoing_round).to eq(Round.find_by(tournament_id: @tournament.id, number: 2))
+        expect(page).to have_css('#flash-message-success', text: 'Round 2 is backed to ongoing')
+
+        visit tournament_path(id: @tournament.id)
+        expect(page).to have_link(
+          'Current round',
+          href: edit_tournament_round_path(tournament_id: @tournament.id, id: 2)
+        )
       end
     end
   end
@@ -71,8 +70,8 @@ RSpec.describe 'tournament page', type: :feature do
       scenario 'delete the round 3' do
         click_on 'Rollback'
 
-        expect(page).to have_css('div.alert-success', text: 'Round 3 is deleted')
-        expect(Round.find_by(tournament_id: @tournament.id, number: 3)).to be_nil
+        expect(page).to have_css('#flash-message-success', text: 'Round 3 is deleted')
+        expect(page).to have_css('#start-new-round')
       end
     end
   end
