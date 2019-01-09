@@ -56,9 +56,9 @@
 <div class="row">
   <div class="col-md-2 col-md-offset-4 center">
     <% if @ongoing_round %>
-    <%= link_to 'Current round', edit_tournament_round_path(tournament_id: @tournament.id, id: @ongoing_round.number), class: 'btn btn-primary' %>
+    <%= link_to 'Current round', edit_tournament_round_path(tournament_id: @tournament.id, id: @ongoing_round.number), class: 'btn btn-primary', id: 'current-round' %>
     <% else %>
-    <%= button_to 'Start new round', tournament_rounds_path(@tournament), method: :post, class: 'btn btn-primary' %>
+    <%= button_to 'Start new round', tournament_rounds_path(@tournament), method: :post, class: 'btn btn-primary', id: 'start-new-round' %>
     <% end %>
   </div>
   <div class="col-md-2 center">
