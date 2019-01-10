@@ -15,6 +15,17 @@ FactoryGirl.define do
       end
     end
 
+    factory :tournament_with_input_completed_two_rounds do
+      with_11_players
+
+      finished_count 1
+
+      after(:create) do |t|
+        t.rounds << create(:first_finished_round, tournament: t)
+        t.rounds << create(:second_finished_round, tournament: t)
+      end
+    end
+
     factory :tournament_with_finished_two_rounds do
       with_11_players
 
