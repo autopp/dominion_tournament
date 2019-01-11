@@ -40,6 +40,11 @@ RSpec.describe 'round editing page', type: :feature do
       visit page_path
 
       click_on 'Finish'
+
+      expect(current_path).to eq(tournament_path(id: @tournament.id))
+      expect(page).not_to have_error_explanation
+      expect(page).to have_flash_message(:success)
+      expect(page).to have_css('#start-new-round')
     end
   end
 end
