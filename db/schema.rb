@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_16_140115) do
+ActiveRecord::Schema.define(version: 2019_01_12_092138) do
 
   create_table "players", force: :cascade do |t|
     t.string "name", null: false
@@ -36,7 +36,6 @@ ActiveRecord::Schema.define(version: 2018_12_16_140115) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "player_id"
-    t.integer "table_id"
     t.integer "tp_numerator"
     t.integer "tp_denominator"
     t.integer "rank"
@@ -44,16 +43,7 @@ ActiveRecord::Schema.define(version: 2018_12_16_140115) do
     t.integer "tournament_id"
     t.integer "round_number", default: 0, null: false
     t.index ["player_id"], name: "index_scores_on_player_id"
-    t.index ["table_id"], name: "index_scores_on_table_id"
     t.index ["tournament_id"], name: "index_scores_on_tournament_id"
-  end
-
-  create_table "tables", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "round_id"
-    t.integer "number", default: 1, null: false
-    t.index ["round_id"], name: "index_tables_on_round_id"
   end
 
   create_table "tournaments", force: :cascade do |t|
