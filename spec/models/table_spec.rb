@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TableEntity, type: :model do
+RSpec.describe Table, type: :model do
   let(:tournament) { Tournament.new }
   let(:table) { described_class.new(number: 1, scores: scores) }
   let(:scores) { [score1, score2, score3, score4] }

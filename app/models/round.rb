@@ -5,7 +5,7 @@ class Round < ApplicationRecord
 
   after_find do
     @table_entities = (1..((tournament.players.count + 3) / 4)).map do |i|
-      TableEntity.new(tournament: tournament, round_number: number, number: i)
+      Table.new(tournament: tournament, round_number: number, number: i)
     end
   end
 

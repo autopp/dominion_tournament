@@ -1,4 +1,4 @@
-class TableEntity
+class Table
   include ActiveModel::Model
 
   DISTRIBUTION_OF_VPS = [6, 3, 1, 0].freeze
