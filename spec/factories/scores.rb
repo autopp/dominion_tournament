@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :score do
     tournament
-    table
     player
 
     has_extra_turn false

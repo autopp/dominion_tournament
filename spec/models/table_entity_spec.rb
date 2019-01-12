@@ -53,7 +53,6 @@ RSpec.describe TableEntity, type: :model do
     let(:score4) { player4.scores.new(tournament: tournament, vp_numerator: 8, vp_denominator: 1) }
 
     it 'updates tp and rank of each score' do
-      pending
       table.finish!
 
       expect(score1.attributes).to include('tp_numerator' => 9, 'tp_denominator' => 2, 'rank' => 1)
