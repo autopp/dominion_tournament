@@ -55,6 +55,8 @@ class RoundsController < ApplicationController
         Score.create!(tournament: tournament, player: player, round_number: round.number, table_number: i)
       end
     end
+    tournament.has_ongoing_round = true
+    tournament.save!
 
     round
   end

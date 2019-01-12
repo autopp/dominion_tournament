@@ -19,6 +19,7 @@ FactoryGirl.define do
       with_11_players
 
       finished_count 1
+      has_ongoing_round true
 
       after(:create) do |t|
         t.rounds << create(:first_finished_round, tournament: t)
@@ -30,6 +31,7 @@ FactoryGirl.define do
       with_11_players
 
       finished_count 2
+      has_ongoing_round false
 
       after(:create) do |t|
         t.rounds << create(:first_finished_round, tournament: t)
@@ -37,6 +39,8 @@ FactoryGirl.define do
       end
 
       factory :tournament_with_ongoing_third_rounds do
+        has_ongoing_round true
+
         after(:create) do |t|
           t.rounds << create(:third_ongoing_round, tournament: t)
         end

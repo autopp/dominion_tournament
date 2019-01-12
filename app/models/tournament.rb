@@ -20,7 +20,7 @@ class Tournament < ApplicationRecord
   end
 
   def ongoing_round
-    rounds.count > finished_count ? rounds.last : nil
+    has_ongoing_round ? rounds.last : nil
   end
 
   def matchings
@@ -46,10 +46,7 @@ class Tournament < ApplicationRecord
         delete_ongoring_round!
         "Round #{finished_count + 1} is deleted"
       else
-        Round.find_by(tournament_id: id, number: finished_count).rollback!
-        restore_players!
-        self.finished_count -= 1 if finished_count > 0
-        save!
+        back_to_ongoing!
         "Round #{finished_count + 1} is backed to ongoing"
       end
     end
@@ -81,6 +78,16 @@ class Tournament < ApplicationRecord
 
   def delete_ongoring_round!
     ongoing_round.destroy!
+    self.has_ongoing_round = false
+    save!
+  end
+
+  def back_to_ongoing!
+    Round.find_by(tournament_id: id, number: finished_count).rollback!
+    restore_players!
+    self.finished_count -= 1 if finished_count > 0
+    self.has_ongoing_round = true
+    save!
   end
 
   def restore_players!
