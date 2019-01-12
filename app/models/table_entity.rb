@@ -14,7 +14,7 @@ class TableEntity
   end
 
   after_initialize do
-    @scores ||= Score.where(tournament: tournament, round_number: round_number, table_number: number)
+    @scores ||= Score.where(tournament: tournament, round_number: round_number, table_number: number).includes(:player)
   end
 
   def aggregate
