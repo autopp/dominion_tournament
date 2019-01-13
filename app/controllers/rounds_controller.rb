@@ -20,7 +20,7 @@ class RoundsController < ApplicationController
   end
 
   def show
-    return unless @round.tournament.ongoing_round == @round
+    return unless @round.tournament.ongoing_round&.number == @round.number
 
     redirect_to edit_tournament_round_path(tournament_id: params[:tournament_id],
                                            number: params[:id])
@@ -30,7 +30,7 @@ class RoundsController < ApplicationController
   end
 
   def edit
-    return if @round.tournament.ongoing_round == @round
+    return if @round.tournament.ongoing_round&.number == @round.number
 
     redirect_to tournament_round_path(tournament_id: params[:tournament_id], number: params[:id])
   end

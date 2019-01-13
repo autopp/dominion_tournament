@@ -7,11 +7,23 @@ class Tournament < ApplicationRecord
   attr_reader :round_entities
 
   after_find do
-    @round_entities = (1..finished_count).map do |round_number|
-      RoundEntity.new(tournament: self, number: round_number)
-    end
+    if rounds
+      @round_entities = (1..finished_count).map do |round_number|
+        RoundEntity.new(tournament: self, number: round_number)
+      end
 
-    @round_entities << RoundEntity.new(tournament: self, number: finished_count + 1) if has_ongoing_round
+      @round_entities << RoundEntity.new(tournament: self, number: finished_count + 1) if has_ongoing_round
+    end
+  end
+
+  after_create do
+    if rounds
+      @round_entities = (1..finished_count).map do |round_number|
+        RoundEntity.new(tournament: self, number: round_number)
+      end
+
+      @round_entities << RoundEntity.new(tournament: self, number: finished_count + 1) if has_ongoing_round
+    end
   end
 
   def ranking
@@ -30,7 +42,7 @@ class Tournament < ApplicationRecord
   end
 
   def ongoing_round
-    has_ongoing_round ? rounds.last : nil
+    has_ongoing_round ? round_entities.last : nil
   end
 
   def matchings
@@ -87,7 +99,8 @@ class Tournament < ApplicationRecord
   private
 
   def delete_ongoring_round!
-    ongoing_round.destroy!
+    # ongoing_round.destroy!
+    rounds.last.destroy! # TODO: delete this after drop rounds table
     self.has_ongoing_round = false
     save!
   end
