@@ -4,6 +4,16 @@ class Tournament < ApplicationRecord
 
   INVALID_PLAYER_COUNTS = [0, 1, 2, 5].freeze
 
+  attr_reader :round_entities
+
+  after_find do
+    @round_entities = (1..finished_count).map do |round_number|
+      RoundEntity.new(tournament: self, number: round_number)
+    end
+
+    @round_entities << RoundEntity.new(tournament: self, number: finished_count + 1) if has_ongoing_round
+  end
+
   def ranking
     grouped_scores = players.includes(:scores).group_by do |p|
       p.ranking_value(total_vp_used, rank_history_used)
