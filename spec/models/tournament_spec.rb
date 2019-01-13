@@ -57,7 +57,7 @@ RSpec.describe Tournament, type: :model do
       let(:tournament) { create(:tournament_with_ongoing_third_rounds) }
 
       it 'returns the ongoing round' do
-        is_expected.to have_attributes(tournament_id: tournament.id, number: 3)
+        is_expected.to have_attributes(tournament: tournament, number: 3)
       end
     end
   end
