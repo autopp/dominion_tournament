@@ -1,5 +1,5 @@
-<% provide(:title, "Tournament #{@round.tournament_id}: Round #{@round.number}") %>
-<% provide(:back_path, tournament_path(id: @round.tournament_id)) %>
+<% provide(:title, "Tournament #{@tournament.id}: Round #{@round.number}") %>
+<% provide(:back_path, tournament_path(id: @tournament.id)) %>
 
 <%= link_to 'Mathings list', round_list_path %>
 <table class="table table-bordered">
@@ -17,7 +17,7 @@
         <% score_id = score.id %>
         <tr>
           <% if i.zero? %>
-            <td rowspan="<%= player_num %>"><%= link_to table.number, edit_tournament_round_table_path(tournament_id: @round.tournament_id, round_id: @round.number, id: table.number) %></td>
+            <td rowspan="<%= player_num %>"><%= link_to table.number, edit_tournament_round_table_path(tournament_id: @tournament.id, round_id: @round.number, id: table.number) %></td>
           <% end %>
           <td><%= score.player.name %></td>
           <td id="<%= "score_#{table_number}_#{i}_vp" %>"><%= score.vp_text(player_num, total_vp_used) %></td>
@@ -29,6 +29,6 @@
 </table>
 <div class="row">
   <div class="col-md-2 col-md-offset-5 center">
-    <%= button_to('Finish',tournament_round_path(tournament_id: @round.tournament_id, id: @round.number), method: :put, class: 'btn btn-primary') %>
+    <%= button_to('Finish',tournament_round_path(tournament_id: @tournament.id, id: @round.number), method: :put, class: 'btn btn-primary') %>
   </div>
 </div>

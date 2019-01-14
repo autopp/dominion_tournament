@@ -1,5 +1,5 @@
-<% provide(:title, "Tournament #{@round.tournament_id}: Round #{@round.number}: Table #{@table.number}") %>
-<% provide(:back_path, tournament_round_path(tournament_id: @round.tournament_id, id: @round.number)) %>
+<% provide(:title, "Tournament #{@tournament.id}: Round #{@round.number}: Table #{@table.number}") %>
+<% provide(:back_path, tournament_round_path(tournament_id: @tournament.id, id: @round.number)) %>
 
 <table class="table table-bordered">
   <thead>

@@ -2,7 +2,8 @@ class TablesController < ApplicationController
   before_action only: %i[show edit list update] do
     round_number = params[:round_id]
     @round = Round.find_by(tournament_id: params[:tournament_id], number: round_number)
-    @table = Table.new(tournament: @round.tournament, round_number: round_number, number: params[:id])
+    @tournament = @round.tournament
+    @table = Table.new(tournament: @tournament, round_number: round_number, number: params[:id])
   end
 
   def show
@@ -36,7 +37,7 @@ class TablesController < ApplicationController
       render_with_errors :edit, errors: err_msgs
     else
       flash[:success] = "Table #{@table.number} was updated!"
-      redirect_to edit_tournament_round_path(tournament_id: @round.tournament_id, id: @round.number)
+      redirect_to edit_tournament_round_path(tournament_id: @tournament.id, id: @round.number)
     end
   end
 

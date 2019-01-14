@@ -1,6 +1,7 @@
 class RoundsController < ApplicationController
   before_action only: %i[show edit list update] do
     @round = Round.find_by(tournament_id: params[:tournament_id], number: params[:id])
+    @tournament = @round.tournament
     @tables = @round.tables
   end
 

@@ -1,8 +1,8 @@
-<% provide(:title, "Tournament #{@round.tournament_id}: Round #{@round.number} Table #{@table.number}") %>
-<% provide(:back_path, edit_tournament_round_path(tournament_id: @round.tournament_id, id: @round.number)) %>
+<% provide(:title, "Tournament #{@tournament.id}: Round #{@round.number} Table #{@table.number}") %>
+<% provide(:back_path, edit_tournament_round_path(tournament_id: @tournament.id, id: @round.number)) %>
 
 <%= link_to 'Mathings list', round_list_path %>
-<%= form_tag(tournament_round_table_path(tournament_id: @round.tournament_id, round_id: @round.number, id: @table.number), method: :put) do %>
+<%= form_tag(tournament_round_table_path(tournament_id: @tournament.id, round_id: @round.number, id: @table.number), method: :put) do %>
   <table class="table table-bordered">
     <thead>
       <td>Name</td>
