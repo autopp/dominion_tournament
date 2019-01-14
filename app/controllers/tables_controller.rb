@@ -1,13 +1,13 @@
 class TablesController < ApplicationController
   before_action only: %i[show edit list update] do
-    round_number = params[:round_id]
-    @round = Round.find_by(tournament_id: params[:tournament_id], number: round_number)
-    @tournament = @round.tournament
+    round_number = params[:round_id].to_i
+    @tournament = Tournament.find(params[:tournament_id])
+    @round = RoundEntity.new(tournament: @tournament, number: round_number)
     @table = Table.new(tournament: @tournament, round_number: round_number, number: params[:id])
   end
 
   def show
-    return unless @round.tournament.ongoing_round&.number == @round.number
+    return unless @tournament.ongoing_round&.number == @round.number
 
     redirect_to edit_tournament_round_table_path(
       tournament_id: params[:tournament_id], round_id: params[:round_id], number: params[:id]
@@ -15,7 +15,7 @@ class TablesController < ApplicationController
   end
 
   def edit
-    return if @round.tournament.ongoing_round&.number == @round.number
+    return if @tournament.ongoing_round&.number == @round.number
 
     redirect_to tournament_round_table_path(
       tournament_id: params[:tournament_id], round_id: params[:round_id], number: params[:id]
@@ -47,7 +47,7 @@ class TablesController < ApplicationController
     inputs = params[:scores]
     scores = @table.scores
     player_num = scores.count
-    total_vp_used = @round.tournament.total_vp_used
+    total_vp_used = @tournament.total_vp_used
     scores.map do |score|
       score.update_by_input(inputs[score.id.to_s], player_num, total_vp_used)
     end
