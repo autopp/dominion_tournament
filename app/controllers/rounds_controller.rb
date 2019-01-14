@@ -49,7 +49,7 @@ class RoundsController < ApplicationController
   private
 
   def create_round(tournament)
-    round = tournament.rounds.create!(number: tournament.rounds.count + 1)
+    round = tournament.rounds.create!(number: tournament.finished_count + 1)
     tournament.matchings.each.with_index(1) do |players, i|
       players.each do |player|
         Score.create!(tournament: tournament, player: player, round_number: round.number, table_number: i)
