@@ -25,6 +25,7 @@ class RoundEntity
     ActiveRecord::Base.transaction do
       tables.each(&:finish!)
       tournament.finished_count += 1
+      tournament.has_ongoing_round = false
       tournament.save!
     end
   end
