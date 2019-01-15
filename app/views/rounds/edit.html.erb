@@ -10,7 +10,7 @@
     <td>Has extra turn?</td>
   </thead>
   <tbody>
-    <% total_vp_used = @round.tournament.total_vp_used %>
+    <% total_vp_used = @tournament.total_vp_used %>
     <% @tables.each.with_index(1) do |table, table_number| %>
       <% player_num = table.scores.size %>
       <% table.scores.each_with_index do |score, i| %>

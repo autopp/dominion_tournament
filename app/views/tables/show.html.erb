@@ -12,7 +12,7 @@
   </thead>
   <tbody>
     <% player_num = @table.scores.size %>
-    <% total_vp_used = @round.tournament.total_vp_used %>
+    <% total_vp_used = @tournament.total_vp_used %>
     <% @table.scores.sort_by(&:rank).each_with_index do |score, i| %>
       <tr>
         <% if i.zero? %>
