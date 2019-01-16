@@ -14,10 +14,10 @@ RSpec.describe Table, type: :model do
     subject { table.aggregate }
 
     context 'when scores is 9, 8, 7, 6' do
-      let(:score1) { player1.scores.new(tournament: tournament, vp_numerator: 9, vp_denominator: 1) }
-      let(:score2) { player2.scores.new(tournament: tournament, vp_numerator: 8, vp_denominator: 1) }
-      let(:score3) { player3.scores.new(tournament: tournament, vp_numerator: 7, vp_denominator: 1) }
-      let(:score4) { player4.scores.new(tournament: tournament, vp_numerator: 6, vp_denominator: 1) }
+      let(:score1) { player1.scores.new(vp_numerator: 9, vp_denominator: 1) }
+      let(:score2) { player2.scores.new(vp_numerator: 8, vp_denominator: 1) }
+      let(:score3) { player3.scores.new(vp_numerator: 7, vp_denominator: 1) }
+      let(:score4) { player4.scores.new(vp_numerator: 6, vp_denominator: 1) }
 
       it 'returns { 6 => [score1], 3 => [score2], 1 => [score3], 0 => [score4] }' do
         expect(subject).to eq(
@@ -30,10 +30,10 @@ RSpec.describe Table, type: :model do
     end
 
     context 'when scores is 9, 9, 8, 8' do
-      let(:score1) { player1.scores.new(tournament: tournament, vp_numerator: 9, vp_denominator: 1) }
-      let(:score2) { player2.scores.new(tournament: tournament, vp_numerator: 9, vp_denominator: 1) }
-      let(:score3) { player3.scores.new(tournament: tournament, vp_numerator: 8, vp_denominator: 1) }
-      let(:score4) { player4.scores.new(tournament: tournament, vp_numerator: 8, vp_denominator: 1) }
+      let(:score1) { player1.scores.new(vp_numerator: 9, vp_denominator: 1) }
+      let(:score2) { player2.scores.new(vp_numerator: 9, vp_denominator: 1) }
+      let(:score3) { player3.scores.new(vp_numerator: 8, vp_denominator: 1) }
+      let(:score4) { player4.scores.new(vp_numerator: 8, vp_denominator: 1) }
 
       it 'returns { 9/2 => [score1, score2], 1/2 => [score3, score4] }' do
         expect(subject).to eq(
@@ -47,10 +47,10 @@ RSpec.describe Table, type: :model do
   end
 
   describe '#finish!' do
-    let(:score1) { player1.scores.new(tournament: tournament, vp_numerator: 9, vp_denominator: 1) }
-    let(:score2) { player2.scores.new(tournament: tournament, vp_numerator: 9, vp_denominator: 1) }
-    let(:score3) { player3.scores.new(tournament: tournament, vp_numerator: 8, vp_denominator: 1) }
-    let(:score4) { player4.scores.new(tournament: tournament, vp_numerator: 8, vp_denominator: 1) }
+    let(:score1) { player1.scores.new(vp_numerator: 9, vp_denominator: 1) }
+    let(:score2) { player2.scores.new(vp_numerator: 9, vp_denominator: 1) }
+    let(:score3) { player3.scores.new(vp_numerator: 8, vp_denominator: 1) }
+    let(:score4) { player4.scores.new(vp_numerator: 8, vp_denominator: 1) }
 
     it 'updates tp and rank of each score' do
       table.finish!

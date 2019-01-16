@@ -53,7 +53,7 @@ class RoundsController < ApplicationController
     round = tournament.rounds.create!(number: tournament.finished_count + 1)
     tournament.matchings.each.with_index(1) do |players, i|
       players.each do |player|
-        Score.create!(tournament: tournament, player: player, round_number: round.number, table_number: i)
+        Score.create!(player: player, round_number: round.number, table_number: i)
       end
     end
     tournament.has_ongoing_round = true
