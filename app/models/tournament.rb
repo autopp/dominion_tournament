@@ -1,6 +1,7 @@
 class Tournament < ApplicationRecord
   has_many :players, dependent: :destroy
   has_many :rounds, dependent: :destroy
+  has_many :scores, through: :players
 
   INVALID_PLAYER_COUNTS = [0, 1, 2, 5].freeze
 
