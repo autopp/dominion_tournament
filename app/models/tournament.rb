@@ -1,6 +1,5 @@
 class Tournament < ApplicationRecord
   has_many :players, dependent: :destroy
-  has_many :rounds, dependent: :destroy
   has_many :scores, through: :players
 
   INVALID_PLAYER_COUNTS = [0, 1, 2, 5].freeze
@@ -8,7 +7,7 @@ class Tournament < ApplicationRecord
   attr_reader :round_entities
 
   after_find do
-    if rounds
+    if !@round_entities
       @round_entities = (1..finished_count).map do |round_number|
         RoundEntity.new(tournament: self, number: round_number)
       end
@@ -18,7 +17,7 @@ class Tournament < ApplicationRecord
   end
 
   after_create do
-    if rounds
+    if !@round_entities
       @round_entities = (1..finished_count).map do |round_number|
         RoundEntity.new(tournament: self, number: round_number)
       end
@@ -100,8 +99,6 @@ class Tournament < ApplicationRecord
   private
 
   def delete_ongoring_round!
-    # ongoing_round.destroy!
-    rounds.last.destroy! # TODO: delete this after drop rounds table
     self.has_ongoing_round = false
     save!
   end

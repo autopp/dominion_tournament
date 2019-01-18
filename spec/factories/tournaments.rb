@@ -80,8 +80,6 @@ FactoryGirl.define do
       has_ongoing_round true
 
       after(:create) do |t|
-        t.rounds << create(:round, tournament: t, number: 1)
-        t.rounds << create(:round, tournament: t, number: 2)
         create_scores_of_round(t, round1_scores)
         create_scores_of_round(t, round2_scores)
       end
@@ -94,8 +92,6 @@ FactoryGirl.define do
       has_ongoing_round false
 
       after(:create) do |t|
-        t.rounds << create(:round, tournament: t, number: 1)
-        t.rounds << create(:round, tournament: t, number: 2)
         create_scores_of_round(t, round1_scores)
         create_scores_of_round(t, round2_scores)
       end
@@ -104,7 +100,6 @@ FactoryGirl.define do
         has_ongoing_round true
 
         after(:create) do |t|
-          t.rounds << create(:round, tournament: t, number: 3)
           create_scores_of_round(t, round1_scores)
           create_scores_of_round(t, round2_scores)
           create_scores_of_round(t, round3_scores)

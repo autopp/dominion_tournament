@@ -50,16 +50,16 @@ class RoundsController < ApplicationController
   private
 
   def create_round(tournament)
-    round = tournament.rounds.create!(number: tournament.finished_count + 1)
+    number = tournament.finished_count + 1
     tournament.matchings.each.with_index(1) do |players, i|
       players.each do |player|
-        Score.create!(player: player, round_number: round.number, table_number: i)
+        Score.create!(player: player, round_number: number, table_number: i)
       end
     end
     tournament.has_ongoing_round = true
     tournament.save!
 
-    round
+    RoundEntity.new(tournament: tournament, number: number)
   end
 
   def try_finish_round
