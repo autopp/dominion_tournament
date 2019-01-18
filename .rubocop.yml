@@ -23,6 +23,12 @@ Style/BracesAroundHashParameters:
 Style/Documentation:
   Enabled: false
 
+Style/NegatedIf:
+  Enabled: false
+
+Style/NegatedWhile:
+  Enabled: false
+
 Style/MutableConstant:
   AutoCorrect: false
 
