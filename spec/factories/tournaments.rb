@@ -36,7 +36,7 @@ FactoryGirl.define do
       # table 3
       ['player9', :score_30vp, :with_4_5tp, 1, 3],  # 4.5 30
       ['player10', :score_30vp, :with_4_5tp, 1, 3], # 4.5 30
-      ['player11', :score_21vp, :with_1tp, 1, 3]   # 1 21
+      ['player11', :score_21vp, :with_1tp, 1, 3]    # 1 21
     ]
 
     round2_scores = [
