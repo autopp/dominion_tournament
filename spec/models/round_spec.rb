@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe RoundEntity, type: :model do
+describe Round, type: :model do
   describe 'finished?' do
     subject { round.finished? }
 

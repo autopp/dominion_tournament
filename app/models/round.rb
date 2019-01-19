@@ -1,4 +1,4 @@
-class RoundEntity
+class Round
   include ActiveModel::Model
 
   attr_accessor :tournament, :number, :tables

@@ -1,7 +1,7 @@
 class RoundsController < ApplicationController
   before_action only: %i[show edit list update] do
     @tournament = Tournament.find(params[:tournament_id])
-    @round = RoundEntity.new(tournament: @tournament, number: params[:id].to_i)
+    @round = Round.new(tournament: @tournament, number: params[:id].to_i)
     @tables = @round.tables
   end
 
@@ -59,7 +59,7 @@ class RoundsController < ApplicationController
     tournament.has_ongoing_round = true
     tournament.save!
 
-    RoundEntity.new(tournament: tournament, number: number)
+    Round.new(tournament: tournament, number: number)
   end
 
   def try_finish_round

@@ -4,7 +4,7 @@ class Tournament < ApplicationRecord
 
   INVALID_PLAYER_COUNTS = [0, 1, 2, 5].freeze
 
-  attr_reader :round_entities
+  attr_reader :rounds
 
   after_find :bind_rounds
   after_create :bind_rounds
@@ -25,7 +25,7 @@ class Tournament < ApplicationRecord
   end
 
   def ongoing_round
-    has_ongoing_round ? round_entities.last : nil
+    has_ongoing_round ? rounds.last : nil
   end
 
   def matchings
@@ -82,12 +82,12 @@ class Tournament < ApplicationRecord
   private
 
   def bind_rounds
-    if !@round_entities
-      @round_entities = (1..finished_count).map do |round_number|
-        RoundEntity.new(tournament: self, number: round_number)
+    if !@rounds
+      @rounds = (1..finished_count).map do |round_number|
+        Round.new(tournament: self, number: round_number)
       end
 
-      @round_entities << RoundEntity.new(tournament: self, number: finished_count + 1) if has_ongoing_round
+      @rounds << Round.new(tournament: self, number: finished_count + 1) if has_ongoing_round
     end
   end
 
@@ -97,7 +97,7 @@ class Tournament < ApplicationRecord
   end
 
   def back_to_ongoing!
-    round_entities.last.rollback!
+    rounds.last.rollback!
     restore_players!
     self.finished_count -= 1 if finished_count > 0
     self.has_ongoing_round = true
