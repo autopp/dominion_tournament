@@ -6,8 +6,8 @@ class Tournament < ApplicationRecord
 
   attr_reader :rounds
 
-  after_find :bind_rounds
-  after_create :bind_rounds
+  after_find :bind_rounds, unless: :rounds
+  after_create :bind_rounds, unless: :rounds
 
   def ranking
     grouped_scores = players.includes(:scores).group_by do |p|
@@ -82,13 +82,11 @@ class Tournament < ApplicationRecord
   private
 
   def bind_rounds
-    if !@rounds
-      @rounds = (1..finished_count).map do |round_number|
-        Round.new(tournament: self, number: round_number)
-      end
-
-      @rounds << Round.new(tournament: self, number: finished_count + 1) if has_ongoing_round
+    @rounds = (1..finished_count).map do |round_number|
+      Round.new(tournament: self, number: round_number)
     end
+
+    @rounds << Round.new(tournament: self, number: finished_count + 1) if has_ongoing_round
   end
 
   def delete_ongoring_round!
