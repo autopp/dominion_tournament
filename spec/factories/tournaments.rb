@@ -15,6 +15,12 @@ FactoryGirl.define do
     end
 
     trait :with_11_players do
+      after(:build) do |t|
+        11.times do |i|
+          t.players << build(:player, name: "player#{i + 1}", tournament: t)
+        end
+      end
+
       after(:create) do |t|
         11.times do |i|
           t.players << create(:player, name: "player#{i + 1}", tournament: t)
