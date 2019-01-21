@@ -1,16 +1,16 @@
-def create_scores_of_round(tournament, scores)
+def bind_scores_of_round(tournament, scores)
   scores.each do |(name, factory, *traits, round_number, table_number)|
     player = tournament.players.find { |p| p.name == name }
-    player.scores << create(factory, *traits, round_number: round_number, table_number: table_number, player: player)
+    player.scores << build(factory, *traits, round_number: round_number, table_number: table_number, player: player)
   end
 end
 
 FactoryGirl.define do
   factory :tournament do
     trait :with_two_players do
-      after(:create) do |t|
-        t.players << create(:player, name: 'xxx', tournament: t)
-        t.players << create(:player, name: 'yyy', tournament: t)
+      after(:build) do |t|
+        t.players << build(:player, name: 'xxx', tournament: t)
+        t.players << build(:player, name: 'yyy', tournament: t)
       end
     end
 
@@ -18,12 +18,6 @@ FactoryGirl.define do
       after(:build) do |t|
         11.times do |i|
           t.players << build(:player, name: "player#{i + 1}", tournament: t)
-        end
-      end
-
-      after(:create) do |t|
-        11.times do |i|
-          t.players << create(:player, name: "player#{i + 1}", tournament: t)
         end
       end
     end
@@ -85,9 +79,9 @@ FactoryGirl.define do
       finished_count 1
       has_ongoing_round true
 
-      after(:create) do |t|
-        create_scores_of_round(t, round1_scores)
-        create_scores_of_round(t, round2_scores)
+      after(:build) do |t|
+        bind_scores_of_round(t, round1_scores)
+        bind_scores_of_round(t, round2_scores)
       end
     end
 
@@ -97,18 +91,18 @@ FactoryGirl.define do
       finished_count 2
       has_ongoing_round false
 
-      after(:create) do |t|
-        create_scores_of_round(t, round1_scores)
-        create_scores_of_round(t, round2_scores)
+      after(:build) do |t|
+        bind_scores_of_round(t, round1_scores)
+        bind_scores_of_round(t, round2_scores)
       end
 
       factory :tournament_with_ongoing_third_rounds do
         has_ongoing_round true
 
-        after(:create) do |t|
-          create_scores_of_round(t, round1_scores)
-          create_scores_of_round(t, round2_scores)
-          create_scores_of_round(t, round3_scores)
+        after(:build) do |t|
+          bind_scores_of_round(t, round1_scores)
+          bind_scores_of_round(t, round2_scores)
+          bind_scores_of_round(t, round3_scores)
         end
       end
     end
