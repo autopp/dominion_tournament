@@ -6,6 +6,10 @@ class TablesController < ApplicationController
     @table = Table.new(tournament: @tournament, round_number: round_number, number: params[:id])
   end
 
+  before_action only: %i[update] do
+    check_auth('staff', fall_back: :edit)
+  end
+
   def show
     return unless @tournament.ongoing_round&.number == @round.number
 
@@ -23,8 +27,6 @@ class TablesController < ApplicationController
   end
 
   def update
-    check_auth('staff', fall_back: :edit) || return
-
     if @round.finished?
       render_with_errors :edit, errors: ['Already finished']
       return
