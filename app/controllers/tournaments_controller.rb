@@ -3,6 +3,14 @@ class TournamentsController < ApplicationController
     @tournament = Tournament.find(params[:id])
   end
 
+  before_action only: %i[create] do
+    check_auth('admin', fall_back: :new)
+  end
+
+  before_action only: %i[update] do
+    render_show(errors: ['Not permitted operation']) if !authorized?('admin')
+  end
+
   def index
     @tournaments = Tournament.all
   end
@@ -11,8 +19,6 @@ class TournamentsController < ApplicationController
   end
 
   def create
-    check_auth('admin', fall_back: :new) || return
-
     players = params[:players].each_line.map(&:strip).reject(&:blank?)
 
     t = Tournament.create_with_players(players, params[:total_vp_used], params[:rank_history_used])
@@ -27,11 +33,6 @@ class TournamentsController < ApplicationController
   end
 
   def update
-    unless authorized?('admin')
-      render_show(errors: ['Not permitted operation'])
-      return
-    end
-
     status, message = if params[:dropout]
                         Player.find(params[:dropout]).dropout
                       else

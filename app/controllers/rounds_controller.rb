@@ -5,6 +5,10 @@ class RoundsController < ApplicationController
     @tables = @round.tables
   end
 
+  before_action only: %i[update] do
+    check_auth('admin', fall_back: :edit)
+  end
+
   def create
     unless authorized?('admin')
       flash[:danger] = 'Not permitted operation'
@@ -37,8 +41,6 @@ class RoundsController < ApplicationController
   end
 
   def update
-    check_auth('admin', fall_back: :edit) || return
-
     if @round.finished?
       render_with_errors :edit, errors: ['Already finished']
       return
