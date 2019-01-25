@@ -27,7 +27,7 @@
         <td class="ranking-player-name"><%= player.name %></td>
         <td class="center">
         <% if player.droped_round %>
-          <%= button_to('Droped', tournament_path(@tournament), method: :put, class: 'btn btn-danger', disabled: true) %>
+          <%= button_to('Dropped', tournament_path(@tournament), method: :put, class: 'btn btn-danger', disabled: true) %>
         <% else %>
           <% if @ongoing_round %>
             <%= button_to('Active', tournament_path(@tournament, dropout: player.id), method: :put, class: 'btn btn-success', disabled: true) %>
