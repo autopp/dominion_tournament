@@ -51,6 +51,18 @@ RSpec.describe 'tournament page', type: :feature do
         )
       end
     end
+
+    context 'and when click "Drop out" of player1' do
+      let(:target_name) { 'player1' }
+      let(:target_player) { @tournament.players.find { |p| p.name == target_name } }
+
+      scenario 'player1 is dropped' do
+        find("#dropout-player-#{target_player.id}").click
+
+        expect(page).to have_css('#flash-message-success', text: "#{target_name} is dropped out")
+        expect(find("#player-#{target_player.id}-status").value).to eq('Dropped')
+      end
+    end
   end
 
   context 'when ongoing round exists' do
