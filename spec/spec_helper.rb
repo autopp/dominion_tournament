@@ -117,11 +117,11 @@ RSpec.configure do |config|
 
   helper = Module.new do
     def have_error_explanation
-      have_css('div', id: 'error_explanation')
+      have_css('#error_explanation')
     end
 
-    def have_flash_message(type)
-      have_css('div', id: "flash-message-#{type}")
+    def have_flash_message(type, text: nil)
+      have_css("#flash-message-#{type}", text: text)
     end
   end
 

@@ -42,7 +42,7 @@ RSpec.describe 'tournament page', type: :feature do
       scenario 'cancel the round 2' do
         click_on 'Rollback'
 
-        expect(page).to have_css('#flash-message-success', text: 'Round 2 is backed to ongoing')
+        expect(page).to have_flash_message(:success, text: 'Round 2 is backed to ongoing')
 
         visit tournament_path(id: @tournament.id)
         expect(page).to have_link(
@@ -59,7 +59,7 @@ RSpec.describe 'tournament page', type: :feature do
       scenario 'player1 is dropped' do
         find("#dropout-player-#{target_player.id}").click
 
-        expect(page).to have_css('#flash-message-success', text: "#{target_name} is dropped out")
+        expect(page).to have_flash_message(:success, text: "#{target_name} is dropped out")
         expect(find("#player-#{target_player.id}-status").value).to eq('Dropped')
       end
     end
@@ -82,7 +82,7 @@ RSpec.describe 'tournament page', type: :feature do
       scenario 'delete the round 3' do
         click_on 'Rollback'
 
-        expect(page).to have_css('#flash-message-success', text: 'Round 3 is deleted')
+        expect(page).to have_flash_message(:success, text: 'Round 3 is deleted')
         expect(page).to have_css('#start-new-round')
       end
     end
