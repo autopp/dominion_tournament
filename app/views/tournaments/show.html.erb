@@ -32,7 +32,7 @@
           <% if @ongoing_round %>
             <%= button_to('Active', tournament_path(@tournament, dropout: player.id), method: :put, class: 'btn btn-success', disabled: true, id: "player-#{player.id}-status") %>
           <% else %>
-            <%= button_to('Drop out', tournament_path(@tournament, dropout: player.id), method: :put, class: 'btn btn-warning', id: "dropout-player-#{player.id}") %>
+            <%= button_to('Drop out', dropout_player_path(@tournament, player.id), method: :put, class: 'btn btn-warning', id: "dropout-player-#{player.id}") %>
           <% end %>
         <% end %>
         </td>

@@ -3,11 +3,16 @@ class TournamentsController < ApplicationController
     @tournament = Tournament.find(params[:id])
   end
 
+  before_action only: %i[dropout] do
+    @tournament = Tournament.find(params[:tournament_id])
+    @player = Player.find(params[:id])
+  end
+
   before_action only: %i[create] do
     check_auth('admin', fall_back: :new)
   end
 
-  before_action only: %i[update] do
+  before_action only: %i[update, dropout] do
     render_show(errors: ['Not permitted operation']) if !authorized?('admin')
   end
 
@@ -33,11 +38,7 @@ class TournamentsController < ApplicationController
   end
 
   def update
-    status, message = if params[:dropout]
-                        Player.find(params[:dropout]).dropout
-                      else
-                        @tournament.rollback
-                      end
+    status, message = @tournament.rollback
 
     if status
       flash[:success] = message
@@ -49,6 +50,15 @@ class TournamentsController < ApplicationController
   end
 
   def dropout
+    status, message = @player.dropout
+
+    if status
+      flash[:success] = message
+    else
+      @errors = [message]
+    end
+
+    render_show
   end
 
   private
