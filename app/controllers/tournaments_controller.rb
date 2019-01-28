@@ -48,6 +48,9 @@ class TournamentsController < ApplicationController
     render_show
   end
 
+  def dropout
+  end
+
   private
 
   def render_show(errors: nil)
