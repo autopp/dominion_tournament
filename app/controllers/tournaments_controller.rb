@@ -12,7 +12,7 @@ class TournamentsController < ApplicationController
     check_auth('admin', fall_back: :new)
   end
 
-  before_action only: %i[update, dropout] do
+  before_action only: %i[update dropout] do
     render_show(errors: ['Not permitted operation']) if !authorized?('admin')
   end
 
