@@ -17,9 +17,7 @@ class RoundsController < ApplicationController
     end
 
     @tournament = Tournament.find(params[:tournament_id])
-    ActiveRecord::Base.transaction do
-      @round = create_round(@tournament)
-    end
+    @round = @tournament.start_round
 
     redirect_to edit_tournament_round_path(tournament_id: @tournament.id, id: @round.number)
   end
@@ -50,19 +48,6 @@ class RoundsController < ApplicationController
   end
 
   private
-
-  def create_round(tournament)
-    number = tournament.finished_count + 1
-    tournament.matchings.each.with_index(1) do |players, i|
-      players.each do |player|
-        Score.create!(player: player, round_number: number, table_number: i)
-      end
-    end
-    tournament.has_ongoing_round = true
-    tournament.save!
-
-    Round.new(tournament: tournament, number: number)
-  end
 
   def try_finish_round
     not_completed_tables = @round.not_completed_tables

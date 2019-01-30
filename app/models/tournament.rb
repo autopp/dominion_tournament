@@ -61,6 +61,23 @@ class Tournament < ApplicationRecord
     [false, e.message]
   end
 
+  def start_round
+    raise 'ongoing round exists' if has_ongoing_round
+
+    ActiveRecord::Base.transaction do
+      number = finished_count + 1
+      matchings.each.with_index(1) do |players, i|
+        players.each do |player|
+          Score.create!(player: player, round_number: number, table_number: i)
+        end
+      end
+      self.has_ongoing_round = true
+      save!
+
+      Round.new(tournament: self, number: number)
+    end
+  end
+
   def self.create_with_players(player_names, total_vp_used, rank_history_used)
     count = player_names.count
     raise "cannot create #{count} player(s) tournament" unless Tournament.valid_players_count?(count)
