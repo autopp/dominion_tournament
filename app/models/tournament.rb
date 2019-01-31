@@ -16,9 +16,7 @@ class Tournament < ApplicationRecord
 
     rank = 1
     grouped_scores.sort_by { |k, _| k }.reverse.each_with_object([]) do |(_, players), ranking|
-      sorted = players.sort_by do |player|
-        total_vp_used ? player.id : player.digest
-      end
+      sorted = players.sort_by { |player| total_vp_used ? player.id : player.digest }
       sorted.each { |player| ranking << { rank: rank, player: player } }
       rank += players.size
     end
@@ -34,13 +32,8 @@ class Tournament < ApplicationRecord
     four_players_table_size = (sorted_players.size + 3) / 4 - three_players_table_size
 
     matchings = []
-    sorted_players.take(four_players_table_size * 4).each_slice(4) do |players|
-      matchings << players
-    end
-
-    sorted_players.drop(four_players_table_size * 4).each_slice(3) do |players|
-      matchings << players
-    end
+    sorted_players.take(four_players_table_size * 4).each_slice(4) { |players| matchings << players }
+    sorted_players.drop(four_players_table_size * 4).each_slice(3) { |players| matchings << players }
 
     matchings
   end
@@ -67,9 +60,7 @@ class Tournament < ApplicationRecord
     ActiveRecord::Base.transaction do
       number = finished_count + 1
       matchings.each.with_index(1) do |players, i|
-        players.each do |player|
-          Score.create!(player: player, round_number: number, table_number: i)
-        end
+        players.each { |player| Score.create!(player: player, round_number: number, table_number: i) }
       end
       self.has_ongoing_round = true
       save!
@@ -85,9 +76,7 @@ class Tournament < ApplicationRecord
     t = new(total_vp_used: total_vp_used || false, rank_history_used: rank_history_used || false)
     ActiveRecord::Base.transaction do
       t.save!
-      player_names.each do |name|
-        t.players.create!(name: name)
-      end
+      player_names.each { |name| t.players.create!(name: name) }
     end
     t
   end
@@ -99,9 +88,7 @@ class Tournament < ApplicationRecord
   private
 
   def bind_rounds
-    @rounds = (1..finished_count).map do |round_number|
-      Round.new(tournament: self, number: round_number)
-    end
+    @rounds = (1..finished_count).map { |round_number| Round.new(tournament: self, number: round_number) }
 
     @rounds << Round.new(tournament: self, number: finished_count + 1) if has_ongoing_round
   end
