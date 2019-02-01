@@ -87,5 +87,13 @@ RSpec.describe Tournament, type: :model do
         expect { subject }.to raise_error('ongoing round exists')
       end
     end
+
+    context 'when tournament dose not have ongoing round' do
+      let(:tournament) { create(:tournament_with_finished_two_rounds) }
+
+      it 'returns new third rounds' do
+        expect(subject).to be_kind_of(Round) & have_attributes(number: 3, tables: a_kind_of(Array))
+      end
+    end
   end
 end
