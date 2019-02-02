@@ -39,25 +39,12 @@ class RoundsController < ApplicationController
   end
 
   def update
-    if @round.finished?
-      render_with_errors :edit, errors: ['Already finished']
-      return
+    result, msgs = @round.finish!
+    if result
+      flash[:success] = msgs.first
+      redirect_to tournament_path(id: params[:tournament_id])
+    else
+      render_with_errors :edit, errors: msgs
     end
-
-    try_finish_round
-  end
-
-  private
-
-  def try_finish_round
-    not_completed_tables = @round.not_completed_tables
-    unless not_completed_tables.empty?
-      errors = not_completed_tables.map { |table| "Table #{table.number} is not completed" }
-      render_with_errors :edit, errors: errors
-      return
-    end
-    @round.finish!
-    flash[:success] = "Round #{@round.number} is finished!"
-    redirect_to tournament_path(id: params[:tournament_id])
   end
 end

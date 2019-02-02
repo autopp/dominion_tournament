@@ -22,12 +22,21 @@ class Round
   end
 
   def finish!
+    return [false, ['Already finished']] if finished?
+
+    not_completed_tables = self.not_completed_tables
+    if !not_completed_tables.empty?
+      return [false, not_completed_tables.map { |table| "Table #{table.number} is not completed" }]
+    end
+
     ActiveRecord::Base.transaction do
       tables.each(&:finish!)
       tournament.finished_count += 1
       tournament.has_ongoing_round = false
       tournament.save!
     end
+
+    [true, ["Round #{number} is finished!"]]
   end
 
   def not_completed_tables
