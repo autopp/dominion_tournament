@@ -74,9 +74,10 @@ RSpec.describe 'tournament page', type: :feature do
     it_behaves_like 'current score ranking viewer'
 
     let(:edit_round_path) { edit_tournament_round_path(tournament_id: @tournament.id, id: 3) }
-    subject { page }
 
-    scenario { is_expected.to have_link('Current round', href: edit_round_path) }
+    scenario 'contains link to the current round' do
+      expect(page).to have_link('Current round', href: edit_round_path)
+    end
 
     context 'and when click rollback' do
       scenario 'delete the round 3' do
