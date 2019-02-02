@@ -43,41 +43,6 @@ RSpec.describe Score, type: :model do
     end
   end
 
-  describe '#<=>' do
-    subject { score <=> other }
-
-    let(:vp_numerator) { 42 }
-    let(:vp_denominator) { 1 }
-
-    context 'when other is smaller' do
-      let(:other) { described_class.new(vp_numerator: 41, vp_denominator: 1) }
-
-      it { is_expected.to be > 0 }
-    end
-
-    context 'when other is greater' do
-      let(:other) { described_class.new(vp_numerator: 43, vp_denominator: 1) }
-
-      it { is_expected.to be < 0 }
-    end
-
-    context 'when other is equal' do
-      context 'and when other dose not has extra turn' do
-        let(:other) { described_class.new(vp_numerator: 42, vp_denominator: 1) }
-
-        it { is_expected.to be_zero }
-      end
-
-      context 'and when other dose not has extra turn' do
-        let(:other) do
-          described_class.new(vp_numerator: 42, vp_denominator: 1, has_extra_turn: true)
-        end
-
-        it { is_expected.to be > 0 }
-      end
-    end
-  end
-
   describe '#vp_text' do
     subject { score.vp_text(3, total_vp_used) }
 
