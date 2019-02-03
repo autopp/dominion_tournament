@@ -31,10 +31,16 @@ RSpec.describe 'tournament page', type: :feature do
     it_behaves_like 'current score ranking viewer'
 
     context 'when click "Start new round"' do
-      before { click_on 'Start new round' }
-
       scenario 'redirect to /tournaments/1/rounds/3/edit' do
+        click_on 'Start new round'
         expect(current_path).to eq(edit_tournament_round_path(tournament_id: @tournament.id, id: 3))
+      end
+
+      context 'when authority level is not admin', auth: :staff do
+        scenario 'fails' do
+          click_on 'Start new round'
+          expect(page).to have_flash_message(:danger)
+        end
       end
     end
 
