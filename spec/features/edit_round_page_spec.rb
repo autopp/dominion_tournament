@@ -33,18 +33,34 @@ RSpec.describe 'round editing page', type: :feature do
   end
 
   context 'when authority level is "admin"' do
-    let(:tournament) { create(:tournament_with_input_completed_two_rounds) }
-    let(:round_number) { 2 }
 
-    scenario 'click finish' do
-      visit page_path
+    context 'and when score input is completed' do
+      let(:tournament) { create(:tournament_with_input_completed_two_rounds) }
+      let(:round_number) { 2 }
 
-      click_on 'Finish'
+      scenario 'click finish' do
+        visit page_path
 
-      expect(current_path).to eq(tournament_path(id: @tournament.id))
-      expect(page).not_to have_error_explanation
-      expect(page).to have_flash_message(:success)
-      expect(page).to have_css('#start-new-round')
+        click_on 'Finish'
+
+        expect(current_path).to eq(tournament_path(id: @tournament.id))
+        expect(page).not_to have_error_explanation
+        expect(page).to have_flash_message(:success)
+        expect(page).to have_css('#start-new-round')
+      end
+    end
+
+    context 'and when score input is not completed' do
+      let(:tournament) { create(:tournament_with_ongoing_third_rounds) }
+      let(:round_number) { 3 }
+
+      scenario 'click finish' do
+        visit page_path
+
+        click_on 'Finish'
+
+        expect(page).to have_error_explanation
+      end
     end
   end
 end
