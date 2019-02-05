@@ -33,7 +33,6 @@ RSpec.describe 'round editing page', type: :feature do
   end
 
   context 'when authority level is "admin"' do
-
     context 'and when score input is completed' do
       let(:tournament) { create(:tournament_with_input_completed_two_rounds) }
       let(:round_number) { 2 }
