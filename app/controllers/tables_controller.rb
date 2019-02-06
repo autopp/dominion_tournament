@@ -32,26 +32,13 @@ class TablesController < ApplicationController
       return
     end
 
-    results = update_scores
-    err_msgs = results.reject(&:first).map { |_status, msg| msg }
+    err_msgs = @table.update_scores(params[:scores])
 
     if !err_msgs.empty?
       render_with_errors :edit, errors: err_msgs
     else
       flash[:success] = "Table #{@table.number} was updated!"
       redirect_to edit_tournament_round_path(tournament_id: @tournament.id, id: @round.number)
-    end
-  end
-
-  private
-
-  def update_scores
-    inputs = params[:scores]
-    scores = @table.scores
-    player_num = scores.count
-    total_vp_used = @tournament.total_vp_used
-    scores.map do |score|
-      score.update_by_input(inputs[score.id.to_s], player_num, total_vp_used)
     end
   end
 end
