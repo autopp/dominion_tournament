@@ -20,9 +20,12 @@ class Table
   def update_scores(inputs)
     player_num = scores.count
     total_vp_used = @tournament.total_vp_used
-    scores.map do |score|
-      score.update_by_input(inputs[score.id.to_s], player_num, total_vp_used)
-    end.reject(&:first)
+
+    ActiveRecord::Base.transaction do
+      scores.map do |score|
+        score.update_by_input(inputs[score.id.to_s], player_num, total_vp_used)
+      end.reject(&:first)
+    end
   end
 
   def aggregate
