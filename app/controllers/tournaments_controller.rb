@@ -38,7 +38,7 @@ class TournamentsController < ApplicationController
   end
 
   def update
-    status, message = @tournament.rollback
+    status, message = @tournament.rollback!
 
     if status
       flash[:success] = message

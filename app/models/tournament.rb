@@ -38,7 +38,7 @@ class Tournament < ApplicationRecord
     matchings
   end
 
-  def rollback
+  def rollback!
     msg = ActiveRecord::Base.transaction do
       if ongoing_round
         delete_ongoring_round!
@@ -54,7 +54,7 @@ class Tournament < ApplicationRecord
     [false, e.message]
   end
 
-  def start_round
+  def start_round!
     raise 'ongoing round exists' if has_ongoing_round
 
     ActiveRecord::Base.transaction do

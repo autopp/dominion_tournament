@@ -77,8 +77,8 @@ RSpec.describe Tournament, type: :model do
     end
   end
 
-  describe '#start_round' do
-    subject { tournament.start_round }
+  describe '#start_round!' do
+    subject { tournament.start_round! }
 
     context 'when tournament has ongoing round' do
       let(:tournament) { build(:tournament_with_ongoing_third_rounds) }

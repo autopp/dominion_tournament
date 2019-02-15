@@ -17,7 +17,7 @@ class RoundsController < ApplicationController
     end
 
     @tournament = Tournament.find(params[:tournament_id])
-    @round = @tournament.start_round
+    @round = @tournament.start_round!
 
     redirect_to edit_tournament_round_path(tournament_id: @tournament.id, id: @round.number)
   end
