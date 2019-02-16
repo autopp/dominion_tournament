@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_18_124928) do
+ActiveRecord::Schema.define(version: 2019_02_16_083433) do
 
   create_table "players", force: :cascade do |t|
     t.string "name", null: false
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2019_01_18_124928) do
     t.boolean "total_vp_used", default: true, null: false
     t.boolean "rank_history_used", default: true, null: false
     t.boolean "has_ongoing_round", default: false, null: false
+    t.boolean "randomize_matchings", default: false, null: false
   end
 
 end
