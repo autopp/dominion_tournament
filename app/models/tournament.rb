@@ -69,11 +69,15 @@ class Tournament < ApplicationRecord
     end
   end
 
-  def self.create_with_players(player_names, total_vp_used, rank_history_used)
+  def self.create_with_players(player_names, total_vp_used, rank_history_used, randomize_matchings)
     count = player_names.count
     raise "cannot create #{count} player(s) tournament" unless Tournament.valid_players_count?(count)
 
-    t = new(total_vp_used: total_vp_used || false, rank_history_used: rank_history_used || false)
+    t = new(
+      total_vp_used: total_vp_used || false,
+      rank_history_used: rank_history_used || false,
+      randomize_matchings: randomize_matchings || false
+    )
     ActiveRecord::Base.transaction do
       t.save!
       player_names.each { |name| t.players.create!(name: name) }

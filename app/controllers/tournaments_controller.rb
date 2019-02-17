@@ -26,7 +26,7 @@ class TournamentsController < ApplicationController
   def create
     players = params[:players].each_line.map(&:strip).reject(&:blank?)
 
-    t = Tournament.create_with_players(players, params[:total_vp_used], params[:rank_history_used])
+    t = Tournament.create_with_players(players, params[:total_vp_used], params[:rank_history_used], false)
     flash[:success] = "New tournament #{t.id} is created"
     redirect_to tournament_path(id: t.id)
   rescue StandardError => e
