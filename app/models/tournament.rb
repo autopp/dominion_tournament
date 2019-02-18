@@ -35,7 +35,11 @@ class Tournament < ApplicationRecord
   # @return [Array<Array<Player>>]
   #
   def matchings
-    sorted_players = ranking.map { |hash| hash[:player] }.reject(&:droped_round)
+    sorted_players = if randomize_matchings
+      ranking.group_by(&:total_tp).sort_by { |total_tp, _| total_tp }.flat_map { |players| players.reject(&:droped_round).shuffle }
+    else
+      ranking.map { |hash| hash[:player] }.reject(&:droped_round)
+    end
     three_players_table_size = (4 - sorted_players.size) % 4
     four_players_table_size = (sorted_players.size + 3) / 4 - three_players_table_size
 
