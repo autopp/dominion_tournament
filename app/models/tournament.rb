@@ -9,6 +9,10 @@ class Tournament < ApplicationRecord
   after_find :bind_rounds!, unless: :rounds
   after_create :bind_rounds!, unless: :rounds
 
+  # Returns current ranking
+  #
+  # @return [Array<Hash>]
+  #
   def ranking
     grouped_scores = players.includes(:scores).group_by do |p|
       p.ranking_value(total_vp_used, rank_history_used)
@@ -26,6 +30,10 @@ class Tournament < ApplicationRecord
     has_ongoing_round ? rounds.last : nil
   end
 
+  # Returns matchings
+  #
+  # @return [Array<Array<Player>>]
+  #
   def matchings
     sorted_players = ranking.map { |hash| hash[:player] }.reject(&:droped_round)
     three_players_table_size = (4 - sorted_players.size) % 4
