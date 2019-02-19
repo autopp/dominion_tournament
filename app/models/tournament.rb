@@ -35,13 +35,7 @@ class Tournament < ApplicationRecord
   # @return [Array<Array<Player>>]
   #
   def matchings
-    sorted_players = if randomize_matchings
-      ranking.group_by(&:total_tp).sort_by { |total_tp, _| total_tp }.flat_map do |players|
-        players.reject(&:droped_round).shuffle
-      end
-    else
-      ranking.map { |hash| hash[:player] }.reject(&:droped_round)
-    end
+    sorted_players = sorted_players_for_matchings
     three_players_table_size = (4 - sorted_players.size) % 4
     four_players_table_size = (sorted_players.size + 3) / 4 - three_players_table_size
 
@@ -109,6 +103,15 @@ class Tournament < ApplicationRecord
     @rounds = (1..finished_count).map { |round_number| Round.new(tournament: self, number: round_number) }
 
     @rounds << Round.new(tournament: self, number: finished_count + 1) if has_ongoing_round
+  end
+
+  def sorted_players_for_matchings
+    players = ranking.map { |hash| hash[:player] }
+    if randomize_matchings
+      players.group_by(&:total_tp).sort_by(&:first).flat_map(&:shuffle)
+    else
+      players
+    end.reject(&:droped_round)
   end
 
   def delete_ongoring_round!
