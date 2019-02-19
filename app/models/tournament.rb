@@ -36,7 +36,9 @@ class Tournament < ApplicationRecord
   #
   def matchings
     sorted_players = if randomize_matchings
-      ranking.group_by(&:total_tp).sort_by { |total_tp, _| total_tp }.flat_map { |players| players.reject(&:droped_round).shuffle }
+      ranking.group_by(&:total_tp).sort_by { |total_tp, _| total_tp }.flat_map do |players|
+        players.reject(&:droped_round).shuffle
+      end
     else
       ranking.map { |hash| hash[:player] }.reject(&:droped_round)
     end

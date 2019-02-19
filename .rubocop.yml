@@ -14,7 +14,10 @@ Rails:
 Metrics/LineLength:
   Max: 120
 
-Style/AsciiComments:
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: start_of_line
+
+  Style/AsciiComments:
   Enabled: false
 
 Style/BracesAroundHashParameters:
