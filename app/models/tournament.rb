@@ -106,12 +106,8 @@ class Tournament < ApplicationRecord
   end
 
   def sorted_players_for_matchings
-    players = ranking.map { |hash| hash[:player] }
-    if randomize_matchings
-      players.group_by(&:total_tp).sort_by(&:first).flat_map(&:shuffle)
-    else
-      players
-    end.reject(&:droped_round)
+    players = ranking.map { |hash| hash[:player] }.reject(&:droped_round)
+    randomize_matchings ? players.group_by(&:total_tp).sort_by(&:first).flat_map(&:shuffle) : players
   end
 
   def delete_ongoring_round!
