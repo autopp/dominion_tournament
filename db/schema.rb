@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_16_083433) do
+ActiveRecord::Schema.define(version: 2019_02_22_004152) do
 
   create_table "players", force: :cascade do |t|
     t.string "name", null: false
@@ -33,7 +33,9 @@ ActiveRecord::Schema.define(version: 2019_02_16_083433) do
     t.integer "rank"
     t.integer "table_number", default: 0, null: false
     t.integer "round_number", default: 0, null: false
+    t.integer "tournament_id"
     t.index ["player_id"], name: "index_scores_on_player_id"
+    t.index ["tournament_id"], name: "index_scores_on_tournament_id"
   end
 
   create_table "tournaments", force: :cascade do |t|
