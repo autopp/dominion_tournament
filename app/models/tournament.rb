@@ -68,7 +68,9 @@ class Tournament < ApplicationRecord
     ActiveRecord::Base.transaction do
       number = finished_count + 1
       matchings.each.with_index(1) do |players, i|
-        players.each { |player| Score.create!(player: player, round_number: number, table_number: i) }
+        players.each do |player|
+          Score.create!(tournament: self, player: player, round_number: number, table_number: i)
+        end
       end
       self.has_ongoing_round = true
       save!

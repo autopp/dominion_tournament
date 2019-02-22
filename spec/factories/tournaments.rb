@@ -1,7 +1,9 @@
 def bind_scores_of_round(tournament, scores)
   scores.each do |(name, factory, *traits, round_number, table_number)|
     player = tournament.players.find { |p| p.name == name }
-    player.scores << build(factory, *traits, round_number: round_number, table_number: table_number, player: player)
+    player.scores << build(
+      factory, *traits, round_number: round_number, table_number: table_number, tournament: tournament, player: player
+    )
   end
 end
 
