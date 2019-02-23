@@ -14,7 +14,9 @@ class Table
   end
 
   after_initialize do
-    @scores ||= Score.where(round_number: round_number, table_number: number).includes(:player)
+    @scores ||= Score.where(
+      tournament: tournament, round_number: round_number, table_number: number
+    ).includes(:player)
   end
 
   def update_scores(inputs)
