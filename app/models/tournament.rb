@@ -115,6 +115,7 @@ class Tournament < ApplicationRecord
   end
 
   def delete_ongoring_round!
+    scores.where(round_number: finished_count + 1).destroy_all
     self.has_ongoing_round = false
     save!
   end
