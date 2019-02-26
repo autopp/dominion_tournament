@@ -17,7 +17,7 @@ Metrics/LineLength:
 Layout/EndAlignment:
   EnforcedStyleAlignWith: start_of_line
 
-  Style/AsciiComments:
+Style/AsciiComments:
   Enabled: false
 
 Style/BracesAroundHashParameters:
