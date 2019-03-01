@@ -2,8 +2,6 @@ class Score < ApplicationRecord
   belongs_to :tournament
   belongs_to :player
 
-  include Comparable
-
   def vp
     vp_numerator && vp_denominator ? Rational(vp_numerator, vp_denominator) : nil
   end
