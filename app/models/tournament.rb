@@ -80,7 +80,7 @@ class Tournament < ApplicationRecord
 
   def self.create_with_players(player_names, total_vp_used, rank_history_used, randomize_matchings)
     count = player_names.count
-    raise "cannot create #{count} player(s) tournament" unless Tournament.valid_players_count?(count)
+    raise "cannot create #{count} player(s) tournament" if !Tournament.valid_players_count?(count)
 
     t = new(
       total_vp_used: total_vp_used || false,

@@ -13,6 +13,6 @@ namespace :cf do
                      rescue StandardError
                        nil
                      end
-    exit(0) unless instance_index == 0
+    exit(0) if !instance_index == 0
   end
 end

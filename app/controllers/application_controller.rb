@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   def check_auth(auth, fall_back:)
     authorized = authorized?(auth)
-    render_with_errors(fall_back, errors: ['Not permitted operation']) unless authorized
+    render_with_errors(fall_back, errors: ['Not permitted operation']) if !authorized
     authorized
   end
 end

@@ -11,7 +11,7 @@ class TablesController < ApplicationController
   end
 
   def show
-    return unless @tournament.ongoing_round&.number == @round.number
+    return if @tournament.ongoing_round&.number != @round.number
 
     redirect_to edit_tournament_round_table_path(
       tournament_id: params[:tournament_id], round_id: params[:round_id], number: params[:id]

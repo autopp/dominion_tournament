@@ -10,7 +10,7 @@ class RoundsController < ApplicationController
   end
 
   def create
-    unless authorized?('admin')
+    if !authorized?('admin')
       flash[:danger] = 'Not permitted operation'
       redirect_to tournament_path(id: params[:tournament_id])
       return
@@ -23,7 +23,7 @@ class RoundsController < ApplicationController
   end
 
   def show
-    return unless @round.tournament.ongoing_round&.number == @round.number
+    return if @round.tournament.ongoing_round&.number != @round.number
 
     redirect_to edit_tournament_round_path(tournament_id: params[:tournament_id],
                                            number: params[:id])

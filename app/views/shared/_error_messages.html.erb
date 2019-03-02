@@ -1,4 +1,4 @@
-<% unless object.blank? %>
+<% if !object.blank? %>
   <div id="error_explanation">
     <div class="alert alert-danger">
       <%= pluralize(object.count, "error") %> found.
