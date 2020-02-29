@@ -39,7 +39,7 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'rake', '~> 12.0'
+gem 'rake', '~> 12.3'
 gem 'listen', '~> 3.0.5'
 
 gem 'bootsnap', '>= 1.1.0', require: false
